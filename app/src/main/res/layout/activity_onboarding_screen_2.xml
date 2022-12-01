@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3C0051"
-    tools:context=".OnboardingScreen2">
+    tools:context=".Activities.OnboardingScreen2">
 
     <ImageView
         android:id="@+id/imageView5"
@@ -38,6 +38,7 @@
         android:layout_marginBottom="76dp"
         android:backgroundTint="#00FFFFFF"
         android:text="Skip"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
@@ -50,6 +51,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#630181"
         android:text="Next"
+        android:textAllCaps="false"
         android:textColor="#FBF7F7"
         app:layout_constraintBottom_toBottomOf="@+id/btnSkip2"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"

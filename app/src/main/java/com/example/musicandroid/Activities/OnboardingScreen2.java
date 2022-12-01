@@ -1,27 +1,29 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class OnboardingScreen1 extends AppCompatActivity {
+import com.example.musicandroid.R;
 
+public class OnboardingScreen2 extends AppCompatActivity {
     Button btnSkip, btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_onboarding_screen_1);
-        btnNext = findViewById(R.id.btnNext1);
-        btnSkip = findViewById(R.id.btnSkip1);
+        setContentView(R.layout.activity_onboarding_screen_2);
+        btnNext = findViewById(R.id.btnNext2);
+        btnSkip = findViewById(R.id.btnSkip2);
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Signup.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -29,7 +31,7 @@ public class OnboardingScreen1 extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OnboardingScreen1.this, OnboardingScreen2.class);
+                Intent intent = new Intent(getApplicationContext(), OnboardingScreen3.class);
                 startActivity(intent);
                 finish();
             }
