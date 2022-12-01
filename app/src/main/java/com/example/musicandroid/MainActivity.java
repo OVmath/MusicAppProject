@@ -2,6 +2,7 @@ package com.example.musicandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
@@ -14,8 +15,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
-        database.child("test").setValue("test 001");
+        Intent intent = new Intent(MainActivity.this, OnboardingScreen1.class);
+        startActivity(intent);
+
 
     }
 }
