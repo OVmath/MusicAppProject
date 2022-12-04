@@ -178,11 +178,11 @@
         android:text="Sign in using "
         android:textColor="#79FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintBottom_toTopOf="@+id/SignInFaceAcc"
         app:layout_constraintEnd_toEndOf="@+id/SignInGGAcc" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/SignInFaceAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="72dp"
