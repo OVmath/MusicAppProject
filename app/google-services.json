@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "487860414502",
+    "project_id": "musicandroidjava",
+    "storage_bucket": "musicandroidjava.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487860414502:android:639b3a06826a0291255ee7",
+        "android_client_info": {
+          "package_name": "com.example.musicandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487860414502-52gfdk8ufe3a9058h5lqi1aod8k841d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8NrONVKhFVwK_6GRRrTVK_Dx5A60wOUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487860414502-52gfdk8ufe3a9058h5lqi1aod8k841d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
