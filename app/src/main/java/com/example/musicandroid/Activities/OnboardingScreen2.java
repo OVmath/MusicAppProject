@@ -38,4 +38,13 @@ public class OnboardingScreen2 extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        System.exit(0);
+
+    }
+
 }
