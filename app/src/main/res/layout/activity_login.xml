@@ -22,15 +22,15 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="167dp"
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.324"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/textView6"
@@ -173,33 +173,33 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="38dp"
         android:text="Sign in using "
         android:textColor="#79FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/SignInFaceAcc"
-        app:layout_constraintEnd_toEndOf="@+id/SignInGGAcc" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="534dp" />
 
     <ImageView
         android:id="@+id/SignInFaceAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView7"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:srcCompat="@drawable/icon_facebook" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.368"
+        app:srcCompat="@drawable/icon_facebook"
+        tools:layout_editor_absoluteX="117dp" />
 
     <ImageView
         android:id="@+id/SignInGGAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toTopOf="@+id/txtChuaCoTK"
-        app:layout_constraintEnd_toEndOf="@+id/txtChuaCoTK"
-        app:srcCompat="@drawable/icon_google" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.074"
+        app:srcCompat="@drawable/icon_google"
+        tools:layout_editor_absoluteX="243dp" />
 
     <TextView
         android:id="@+id/txtChuaCoTK"

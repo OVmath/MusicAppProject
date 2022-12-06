@@ -176,16 +176,14 @@
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="0dp"
+        android:layout_width="302dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="55dp"
         android:backgroundTint="#3C0051 "
         android:text="Sign up"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -194,36 +192,33 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="38dp"
         android:text="Sign up using "
         android:textColor="#79FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView13"
-        app:layout_constraintEnd_toEndOf="@+id/imageView14" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="538dp" />
 
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtCoTK"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="@+id/btnSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        app:layout_constraintVertical_bias="0.345"
         app:srcCompat="@drawable/icon_facebook" />
 
     <ImageView
         android:id="@+id/imageView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
-        android:layout_marginEnd="109dp"
-        android:layout_marginBottom="23dp"
         app:layout_constraintBottom_toTopOf="@+id/txtCoTK"
         app:layout_constraintEnd_toEndOf="@+id/txtCoTK"
         app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
         app:srcCompat="@drawable/icon_google" />
 
     <TextView
@@ -232,7 +227,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="29dp"
-        android:onClick="Da"
         android:text="Already have a account?"
         android:textColor="#79FFFFFF"
         android:textSize="15sp"

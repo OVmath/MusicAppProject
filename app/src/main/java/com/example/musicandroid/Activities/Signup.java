@@ -85,7 +85,7 @@ public class Signup extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finishAffinity();
+        finishAffinity();//kết thúc tất cả các activity trong cùng một ngăn xếp nhiệm vụ
         System.exit(0);
 
     }
