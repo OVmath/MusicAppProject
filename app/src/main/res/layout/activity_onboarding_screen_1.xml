@@ -107,10 +107,10 @@
             android:text="Next"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSkip1"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSkip3"
             app:layout_constraintEnd_toEndOf="@+id/imageView9"
             app:layout_constraintStart_toStartOf="@+id/linearLayoutOnboarding1"
-            app:layout_constraintTop_toTopOf="@+id/btnSkip1" />
+            app:layout_constraintTop_toTopOf="@+id/btnSkip3" />
 
         <Space
             android:layout_width="wrap_content"
