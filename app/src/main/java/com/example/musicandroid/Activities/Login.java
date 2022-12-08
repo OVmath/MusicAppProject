@@ -2,8 +2,10 @@ package com.example.musicandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,8 +32,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.Arrays;
 
@@ -39,7 +43,7 @@ public class Login extends AppCompatActivity {
 
     TextView txtChuaCoTK;
     EditText TK, MK;
-    Button btnDN;
+    Button btnDN, btnQMK;
     ImageView signInWithGG, signInWithFace;
     CheckBox rememberAcc;
     FirebaseAuth auth;
@@ -58,6 +62,7 @@ public class Login extends AppCompatActivity {
         signInWithGG = findViewById(R.id.SignInGGAcc);
         signInWithFace = findViewById(R.id.SignInFaceAcc);
         rememberAcc = findViewById(R.id.checkBoxRemember);
+        btnQMK = findViewById(R.id.btnForgotPass);
         auth = FirebaseAuth.getInstance();
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
@@ -118,6 +123,58 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, exception.toString() + "", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        btnQMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (TK.getText().toString().trim().equals("")){
+                    Toast.makeText(Login.this, "Vui lòng nhập mail đăng nhập", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    auth.fetchSignInMethodsForEmail(TK.getText().toString()).addOnCompleteListener(Login.this,
+                            new OnCompleteListener<SignInMethodQueryResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(Login.this, "Tài khoản có tồn tại", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                                builder.setTitle("Quên mật khẩu").setMessage("Bạn có muốn gủi thư đổi mật khẩu vào " + TK.getText().toString() +
+                                        " không??");
+
+                                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        auth.sendPasswordResetEmail(TK.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    Toast.makeText(Login.this, "Mail đổi mật khẩu đã được gửi vui lòng kiểm tra mail", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                }).setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                       dialogInterface.dismiss(); 
+                                    }
+                                });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+
+                            }
+                            else Toast.makeText(Login.this, "Tài khoản không tồn tại vui lòng đăng ký tài khoản", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+
+            }
+        });
 
         btnDN.setOnClickListener(new View.OnClickListener() {
             @Override
