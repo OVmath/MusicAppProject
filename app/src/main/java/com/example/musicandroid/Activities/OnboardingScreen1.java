@@ -23,7 +23,7 @@ public class OnboardingScreen1 extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Login.class);
+                Intent intent = new Intent(getApplicationContext(), MusicScreen.class);
                 startActivity(intent);
                 finish();
             }
