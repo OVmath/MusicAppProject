@@ -78,7 +78,8 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     Toast.makeText(Login.this, "Đăng nhập thành công..", Toast.LENGTH_SHORT).show();
-                    finish();
+                    startActivity( new Intent(Login.this, MusicScreen.class));
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -110,7 +111,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Toast.makeText(Login.this, "Đăng nhập bằng tài khoản facebook thành công!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        startActivity( new Intent(Login.this, MusicScreen.class));
                     }
 
                     @Override
@@ -218,7 +219,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(Login.this, "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
-                    finish();
+                    startActivity( new Intent(Login.this, MusicScreen.class));
                 }else Toast.makeText(Login.this, "Đăng nhập thất bại.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -242,7 +243,7 @@ public class Login extends AppCompatActivity {
             try {
 
                 Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
-                finish();
+                startActivity( new Intent(Login.this, MusicScreen.class));
             }catch (Exception ex){
                 Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
             }
