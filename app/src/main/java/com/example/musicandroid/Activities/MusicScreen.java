@@ -21,7 +21,6 @@ public class MusicScreen extends AppCompatActivity {
     RecyclerView RvArtist, RvTrending, RvLateRelease;
     ArtistRvAdapter artistAdapter, lateReleaseAdapter;
     TrendingRvAdapter trendingAdapter;
-    LinearLayoutManager linearLayoutManager, linearLayoutManager2, linearLayoutManager3;
     ArrayList<ArtistModels> listArtist, listLastestRelease;
     ArrayList<TrendingModels> listTrending;
 
@@ -48,22 +47,20 @@ public class MusicScreen extends AppCompatActivity {
         listTrending.add(new TrendingModels(R.drawable.trending + ""));
         listTrending.add(new TrendingModels(R.drawable.trending + ""));
 
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         artistAdapter = new ArtistRvAdapter(listArtist);
-        RvArtist.setLayoutManager(linearLayoutManager);
+        RvArtist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvArtist.setAdapter(artistAdapter);
 
-        linearLayoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         trendingAdapter = new TrendingRvAdapter(listTrending);
-        RvTrending.setLayoutManager(linearLayoutManager2);
+        RvTrending.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvTrending.setAdapter(trendingAdapter);
 
         listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
         listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
         listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
-        linearLayoutManager3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
         lateReleaseAdapter = new ArtistRvAdapter(listLastestRelease);
-        RvLateRelease.setLayoutManager(linearLayoutManager3);
+        RvLateRelease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvLateRelease.setAdapter(lateReleaseAdapter);
 
 
