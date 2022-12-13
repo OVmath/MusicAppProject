@@ -4,6 +4,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ public class ArtistRvAdapter extends RecyclerView.Adapter<ArtistRvAdapter.Artist
     @Override
     public void onBindViewHolder(@NonNull ArtistHolder holder, int position) {
         holder.tvArtistName.setText(artistModelsArrayList.get(position).getName());
+        int src = Integer.parseInt(artistModelsArrayList.get(position).getImgSrc());
+        holder.img.setImageResource(src);
     }
 
     @Override
@@ -42,10 +45,12 @@ public class ArtistRvAdapter extends RecyclerView.Adapter<ArtistRvAdapter.Artist
     class ArtistHolder extends RecyclerView.ViewHolder{
 
         TextView tvArtistName;
+        ImageView img;
 
         public ArtistHolder(@NonNull View itemView) {
             super(itemView);
             tvArtistName = itemView.findViewById(R.id.tvArtistName);
+            img = itemView.findViewById(R.id.imgArtist);
         }
     }
 

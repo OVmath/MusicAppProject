@@ -7,13 +7,14 @@ import com.example.musicandroid.R;
 public class ArtistModels {
 
     private String name;
-    //private ImageView img;
+    private String imgSrc;
 
     public ArtistModels() {
     }
 
-    public ArtistModels(String name) {
+    public ArtistModels(String name, String imgSrc) {
         this.name = name;
+        this.imgSrc = imgSrc;
     }
 
     public String getName() {
@@ -23,13 +24,12 @@ public class ArtistModels {
     public void setName(String name) {
         this.name = name;
     }
-/*
-    public String getImgUri() {
-        return imgUri;
+
+    public String getImgSrc() {
+        return imgSrc;
     }
 
-    public void setImgUri(String imgUri) {
-        this.imgUri = imgUri;
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
     }
-*/
 }
