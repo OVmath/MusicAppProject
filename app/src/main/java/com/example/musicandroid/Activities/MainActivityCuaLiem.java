@@ -7,16 +7,15 @@ import android.os.Bundle;
 
 import com.example.musicandroid.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityCuaLiem extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, OnboardingScreen1.class);
+        setContentView(R.layout.activity_main_cua_liem);
+        Intent intent = new Intent(MainActivityCuaLiem.this, OnboardingScreen1.class);
         startActivity(intent);
-
-
+        finish();
     }
 
     @Override
