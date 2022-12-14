@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#500151"
+    android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTitle"
+        android:text="Playlist name"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/btn_close"
+        android:src="@drawable/ic_close_exit"
+        android:layout_toEndOf="@id/tvTitle"
+        android:layout_marginStart="200dp"
+        android:gravity="top"
+        />
+    <EditText
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtName"
+        android:layout_below="@+id/btn_close"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:padding="4dp"
+        android:hint="Name..."
+        android:textColorHint="@color/white"
+        android:background="@drawable/button_border"
+        android:minHeight="48dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_choose_img"
+        android:text="Choose Image"
+        android:layout_below="@id/edtName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/white"
+        />
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/ChoseImg"
+        android:src="@drawable/avatar_default"
+        android:layout_below="@+id/btn_choose_img"
+        android:layout_centerHorizontal="true"
+        />
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ChoseImg"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:backgroundTint="#000"
+            android:layout_marginRight="30dp"
+            android:id="@+id/btn_destroy"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu"
+            android:backgroundTint="#AC06A9"
+            android:id="@+id/btn_save"
+
+            />
+
+    </LinearLayout>
+</RelativeLayout>

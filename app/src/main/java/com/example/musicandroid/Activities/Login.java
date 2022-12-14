@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -78,7 +79,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     Toast.makeText(Login.this, "Đăng nhập thành công..", Toast.LENGTH_SHORT).show();
-                    startActivity( new Intent(Login.this, MusicScreen.class));
+                    startActivity( new Intent(Login.this, MainActivity.class));
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -111,7 +112,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Toast.makeText(Login.this, "Đăng nhập bằng tài khoản facebook thành công!", Toast.LENGTH_SHORT).show();
-                        startActivity( new Intent(Login.this, MusicScreen.class));
+                        startActivity( new Intent(Login.this, MainActivity.class));
                     }
 
                     @Override
@@ -219,7 +220,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(Login.this, "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
-                    startActivity( new Intent(Login.this, MusicScreen.class));
+                    startActivity( new Intent(Login.this, MainActivity.class));
                 }else Toast.makeText(Login.this, "Đăng nhập thất bại.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -242,7 +243,7 @@ public class Login extends AppCompatActivity {
             if (resultCode == RESULT_OK){
                 GoogleSignInAccount Acc = GoogleSignIn.getLastSignedInAccount(this);
                 Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
-                startActivity( new Intent(Login.this, MusicScreen.class));
+                startActivity( new Intent(Login.this, MainActivity.class));
             }
         }
 

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#752498"
+    tools:context=".AddSongActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSong"
+        android:text="Add Song"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        />
+    <EditText
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name..."
+        android:id="@+id/edtName"
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/white"
+        android:background="@drawable/button_border"
+        />
+
+
+    <EditText
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Artist..."
+        android:id="@+id/edtArtist"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_border"
+        />
+    <Button
+        android:backgroundTint="#D9D9D9"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Chọn ảnh"
+        android:id="@+id/btn_image"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:id="@+id/image"
+        android:src="@drawable/avatar_default"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+    >
+        <Button
+            android:backgroundTint="#F44336"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_exit"
+            android:text="Thoát"
+            android:textColor="@color/black"
+            android:layout_marginEnd="100dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:backgroundTint="#03A9F4"
+            android:id="@+id/btn_save"
+            android:text="Lưu"/>
+
+    </LinearLayout>
+</LinearLayout>
