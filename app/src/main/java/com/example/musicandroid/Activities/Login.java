@@ -240,13 +240,8 @@ public class Login extends AppCompatActivity {
 
         if (requestCode == 01){
             GoogleSignInAccount Acc = GoogleSignIn.getLastSignedInAccount(this);
-            try {
-
-                Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
-                startActivity( new Intent(Login.this, MusicScreen.class));
-            }catch (Exception ex){
-                Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
+            startActivity( new Intent(Login.this, MusicScreen.class));
         }
 
     }
