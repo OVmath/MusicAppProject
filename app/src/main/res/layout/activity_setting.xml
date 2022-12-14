@@ -376,37 +376,14 @@
             </TableLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/BottomNav"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navi_menu"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="?actionBarSize"
             android:background="#B7AAAAAA"
-            android:layerType="software"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:weightSum="3">
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_music_note_24" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_home_24" />
-
-            <ImageView
-                android:id="@+id/imgSettingMusicScreen"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_settings_24" />
-        </LinearLayout>
+            app:itemIconTint="#FFFF"
+            app:itemTextColor="@color/white"
+            app:menu="@menu/menu_bottom_search" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
