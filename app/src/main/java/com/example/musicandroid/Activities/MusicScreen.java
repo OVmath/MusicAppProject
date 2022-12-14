@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.musicandroid.Models.ArtistModels;
@@ -23,6 +26,7 @@ public class MusicScreen extends AppCompatActivity {
     TrendingRvAdapter trendingAdapter;
     ArrayList<ArtistModels> listArtist, listLastestRelease;
     ArrayList<TrendingModels> listTrending;
+    ImageView settingBottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class MusicScreen extends AppCompatActivity {
         RvArtist = findViewById(R.id.rvArtist);
         RvTrending = findViewById(R.id.rvTrending);
         RvLateRelease = findViewById(R.id.rvLateRelease);
+        settingBottomNav = findViewById(R.id.imgSettingMusicScreen);
 
         listArtist = new ArrayList<>();
         listTrending = new ArrayList<>();
@@ -63,7 +68,12 @@ public class MusicScreen extends AppCompatActivity {
         RvLateRelease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvLateRelease.setAdapter(lateReleaseAdapter);
 
-
+        settingBottomNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MusicScreen.this, Setting.class));
+            }
+        });
     }
 
     @Override
