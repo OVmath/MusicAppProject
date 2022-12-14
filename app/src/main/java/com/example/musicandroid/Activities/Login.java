@@ -239,9 +239,11 @@ public class Login extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 01){
-            GoogleSignInAccount Acc = GoogleSignIn.getLastSignedInAccount(this);
-            Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
-            startActivity( new Intent(Login.this, MusicScreen.class));
+            if (resultCode == RESULT_OK){
+                GoogleSignInAccount Acc = GoogleSignIn.getLastSignedInAccount(this);
+                Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
+                startActivity( new Intent(Login.this, MusicScreen.class));
+            }
         }
 
     }
