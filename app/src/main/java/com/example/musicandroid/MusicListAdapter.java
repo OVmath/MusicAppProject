@@ -57,19 +57,19 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
             }
         });
-        holder.imgMenu.setOnClickListener(view -> {
-            Dialog dialog = new Dialog(context);
-            dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
-            dialog.setContentView(R.layout.dialog_menu);
-            Button add = dialog.findViewById(R.id.btn_add);
-            Button edit= dialog.findViewById(R.id.btn_edit);
-            Button delete = dialog.findViewById(R.id.btn_delete);
-            Button exit = dialog.findViewById(R.id.btn_exit);
-            exit.setOnClickListener(view1 -> {
-                dialog.dismiss();
-            });
-            dialog.show();
-        });
+//        holder.imgMenu.setOnClickListener(view -> {
+//            Dialog dialog = new Dialog(context);
+//            dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+//            dialog.setContentView(R.layout.dialog_menu);
+//            Button add = dialog.findViewById(R.id.btn_add);
+//            Button edit= dialog.findViewById(R.id.btn_edit);
+//            Button delete = dialog.findViewById(R.id.btn_delete);
+//            Button exit = dialog.findViewById(R.id.btn_exit);
+//            exit.setOnClickListener(view1 -> {
+//                dialog.dismiss();
+//            });
+//            dialog.show();
+//        });
     }
 
     @Override
