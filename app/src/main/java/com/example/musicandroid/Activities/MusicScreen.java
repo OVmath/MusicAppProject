@@ -1,11 +1,15 @@
 package com.example.musicandroid.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -13,8 +17,10 @@ import android.widget.Toast;
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
 import com.example.musicandroid.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import Adapter.ArtistRvAdapter;
 import Adapter.TrendingRvAdapter;
@@ -26,7 +32,7 @@ public class MusicScreen extends AppCompatActivity {
     TrendingRvAdapter trendingAdapter;
     ArrayList<ArtistModels> listArtist, listLastestRelease;
     ArrayList<TrendingModels> listTrending;
-    ImageView settingBottomNav;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,7 @@ public class MusicScreen extends AppCompatActivity {
         RvArtist = findViewById(R.id.rvArtist);
         RvTrending = findViewById(R.id.rvTrending);
         RvLateRelease = findViewById(R.id.rvLateRelease);
-        settingBottomNav = findViewById(R.id.imgSettingMusicScreen);
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu);
 
         listArtist = new ArrayList<>();
         listTrending = new ArrayList<>();
@@ -68,10 +74,14 @@ public class MusicScreen extends AppCompatActivity {
         RvLateRelease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvLateRelease.setAdapter(lateReleaseAdapter);
 
-        settingBottomNav.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MusicScreen.this, Setting.class));
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.btn_setting:
+                        startActivity(new Intent(MusicScreen.this, Setting.class));
+                }
+                return true;
             }
         });
     }
