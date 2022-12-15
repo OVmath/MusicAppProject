@@ -7,14 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
 import com.example.musicandroid.R;
@@ -25,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import Adapter.ArtistRvAdapter;
 import Adapter.TrendingRvAdapter;
@@ -37,13 +33,14 @@ public class MusicScreen extends AppCompatActivity {
     TrendingRvAdapter trendingAdapter;
     ArrayList<ArtistModels> listArtist, listLastestRelease;
     ArrayList<TrendingModels> listTrending;
-    BottomNavigationView bottomNavigationView;
+
     TextView tvHelloAcc;
     //liem code start
     FirebaseAuth auth = FirebaseAuth.getInstance();
     GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-    GoogleSignInClient gsc = GoogleSignIn.getClient(this, signInOptions);
-    //end
+    GoogleSignInClient gsc = GoogleSignIn.getClient(MusicScreen.this, signInOptions);
+    BottomNavigationView bottomNavigationView;
+    //liem end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +78,7 @@ public class MusicScreen extends AppCompatActivity {
         RvArtist = findViewById(R.id.rvArtist);
         RvTrending = findViewById(R.id.rvTrending);
         RvLateRelease = findViewById(R.id.rvLateRelease);
-        bottomNavigationView = findViewById(R.id.bottom_navi_menu);
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
 
         listArtist = new ArrayList<>();
         listTrending = new ArrayList<>();
@@ -112,17 +109,7 @@ public class MusicScreen extends AppCompatActivity {
         lateReleaseAdapter = new ArtistRvAdapter(listLastestRelease);
         RvLateRelease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvLateRelease.setAdapter(lateReleaseAdapter);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.btn_setting:
-                        startActivity(new Intent(MusicScreen.this, Setting.class));
-                }
-                return true;
-            }
-        });
+        //liem end
     }
 
     @Override

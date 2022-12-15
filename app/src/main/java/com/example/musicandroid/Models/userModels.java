@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class userModels implements Serializable {
     //Liem code start
     private String UID, LinkAnh, GioiTinh;
-    private ArrayList<String> listPlayList, listLikeSongs, listLocalSongs;
+    private ArrayList<String> listPlayList, listLikeSongs;
+    private ArrayList<SongObject> listSong;
 
     public userModels() {
     }
@@ -18,9 +19,13 @@ public class userModels implements Serializable {
         this.UID = UID;
     }
 
-    public userModels(String UID, String linkAnh, ArrayList<String> listArtist) {
+    public userModels(String UID, String linkAnh, String gioiTinh, ArrayList<String> listPlayList, ArrayList<String> listLikeSongs, ArrayList<SongObject> listSong) {
         this.UID = UID;
-        this.LinkAnh = linkAnh;
+        LinkAnh = linkAnh;
+        GioiTinh = gioiTinh;
+        this.listPlayList = listPlayList;
+        this.listLikeSongs = listLikeSongs;
+        this.listSong = listSong;
     }
 
     public String getUID() {
@@ -39,6 +44,37 @@ public class userModels implements Serializable {
         LinkAnh = linkAnh;
     }
 
+    public String getGioiTinh() {
+        return GioiTinh;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        GioiTinh = gioiTinh;
+    }
+
+    public ArrayList<String> getListPlayList() {
+        return listPlayList;
+    }
+
+    public void setListPlayList(ArrayList<String> listPlayList) {
+        this.listPlayList = listPlayList;
+    }
+
+    public ArrayList<String> getListLikeSongs() {
+        return listLikeSongs;
+    }
+
+    public void setListLikeSongs(ArrayList<String> listLikeSongs) {
+        this.listLikeSongs = listLikeSongs;
+    }
+
+    public ArrayList<SongObject> getListSong() {
+        return listSong;
+    }
+
+    public void setListSong(ArrayList<SongObject> listSong) {
+        this.listSong = listSong;
+    }
 
     //end
 }

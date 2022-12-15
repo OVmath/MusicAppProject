@@ -123,7 +123,7 @@
         </ScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navi_menu"
+            android:id="@+id/bottom_navi_menu_setting_activity"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="#B7AAAAAA"
