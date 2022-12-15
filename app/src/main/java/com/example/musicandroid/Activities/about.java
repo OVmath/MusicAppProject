@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -42,6 +43,7 @@ public class about extends AppCompatActivity {
                 return true;
             }
             else {
+                startActivity(new Intent(about.this, MainActivity.class));
                 return true;
             }
         });

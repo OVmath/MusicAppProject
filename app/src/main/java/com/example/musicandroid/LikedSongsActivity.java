@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
+import com.example.musicandroid.Activities.helpAndSupport;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class LikedSongsActivity extends AppCompatActivity {
@@ -46,6 +47,7 @@ public class LikedSongsActivity extends AppCompatActivity {
                 return true;
             }
             else {
+                startActivity(new Intent(LikedSongsActivity.this, MainActivity.class));
                 return true;
             }
         });

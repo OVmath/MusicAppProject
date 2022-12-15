@@ -117,6 +117,7 @@ public class MusicScreen extends AppCompatActivity {
                 return true;
             }
             else {
+                startActivity(new Intent(MusicScreen.this, MainActivity.class));
                 return true;
             }
 //            return true;

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
+import com.example.musicandroid.Activities.helpAndSupport;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -107,6 +108,7 @@ public class PlaylistActivity extends AppCompatActivity {
                 return true;
             }
             else {
+                startActivity(new Intent(PlaylistActivity.this, MainActivity.class));
                 return true;
             }
         });
