@@ -8,15 +8,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.view.Window;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.Activities.MusicScreen;
+import com.example.musicandroid.Activities.Setting;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.OnboardingScreen1;
 import com.example.musicandroid.Activities.Setting;
@@ -31,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLikedSongs;
     TextView tvHelloAcc;
 
+    BottomNavigationView bottomNavigationView;
     ArrayList<SongObject> songsList = new ArrayList<>();
     MusicListAdapter adapter;
 
@@ -50,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
-    BottomNavigationView bottomNavigationView;
     //end
 
     @Override
@@ -64,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         tvHelloAcc = findViewById(R.id.tvHelloAcc);
 
         //Liem code start
-        bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
+
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
         //end
 
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu);
         switchIntent();
         if(!checkPermission()){
             requestPermission();
@@ -113,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 ////                adapter.notifyDataSetChanged();
 //
 //        }
-        adapter = new MusicListAdapter(songsList,getApplicationContext());
+        adapter = new MusicListAdapter(songsList,MainActivity.this);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -153,6 +162,20 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId()==R.id.btn_music_page){
+                startActivity(new Intent(MainActivity.this,MusicScreen.class));
+                return true;
+            }
+            else if (item.getItemId()==R.id.btn_setting){
+                startActivity(new Intent(MainActivity.this,Setting.class));
+                return true;
+            }
+            else {
+                return true;
+            }
+        });
     }
 
     boolean checkPermission(){
@@ -174,6 +197,19 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(new MusicListAdapter(songsList,getApplicationContext()));
         }
     }
+
+    public void showDialogMenu(SongObject songObject) {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        dialog.setContentView(R.layout.dialog_menu);
+        TextView tvTitle = dialog.findViewById(R.id.tvTitle);
+        Button btn_edit   = dialog.findViewById(R.id.btn_edit);
+        Button btn_delete = dialog.findViewById(R.id.btn_delete);
+        Button exit = dialog.findViewById(R.id.btn_exit);
+        exit.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
+    }
+
     //liem code start
     @Override
     public void onBackPressed() {
