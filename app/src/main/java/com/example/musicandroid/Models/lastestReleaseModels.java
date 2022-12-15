@@ -1,22 +1,25 @@
+//liem code
 package com.example.musicandroid.Models;
 
-import java.security.PrivateKey;
-import java.util.ArrayList;
+public class lastestReleaseModels {
 
-public class TrendingModels {
+    private String name, imgSrc, songSrc;
 
-    private String imgSrc, songSrc;
-
-    public TrendingModels() {
+    public lastestReleaseModels() {
     }
 
-    public TrendingModels(String imgSrc) {
-        this.imgSrc = imgSrc;
-    }
-
-    public TrendingModels(String imgSrc, String songSrc) {
+    public lastestReleaseModels(String name, String imgSrc, String songSrc) {
+        this.name = name;
         this.imgSrc = imgSrc;
         this.songSrc = songSrc;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImgSrc() {

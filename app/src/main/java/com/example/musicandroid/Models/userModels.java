@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class userModels implements Serializable {
     //Liem code start
     private String UID, LinkAnh, GioiTinh;
-    private ArrayList<SongObject> listSong;
-    private ArrayList<PlaylistObject> listPlayList;
+    private ArrayList<String> listPlayList, listLikeSongs, listLocalSongs;
 
     public userModels() {
     }
@@ -40,28 +39,6 @@ public class userModels implements Serializable {
         LinkAnh = linkAnh;
     }
 
-    public ArrayList<PlaylistObject> getListPlayList() {
-        return listPlayList;
-    }
 
-    public void setListPlayList(ArrayList<PlaylistObject> listPlayList) {
-        this.listPlayList = listPlayList;
-    }
-
-    public String getGioiTinh() {
-        return GioiTinh;
-    }
-
-    public void setGioiTinh(String gioiTinh) {
-        GioiTinh = gioiTinh;
-    }
-
-    public ArrayList<SongObject> getListSong() {
-        return listSong;
-    }
-
-    public void setListSong(ArrayList<SongObject> listSong) {
-        this.listSong = listSong;
-    }
     //end
 }

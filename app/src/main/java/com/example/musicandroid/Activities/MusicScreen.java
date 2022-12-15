@@ -94,8 +94,8 @@ public class MusicScreen extends AppCompatActivity {
         listArtist.add(new ArtistModels("Sonu Nigam",R.drawable.ic_user_24 + ""));
         listArtist.add(new ArtistModels("Shreya \n Ghoshal",R.drawable.ic_user_24 + ""));
 
-        listTrending.add(new TrendingModels(R.drawable.trending + ""));
-        listTrending.add(new TrendingModels(R.drawable.trending + ""));
+        listTrending.add(new TrendingModels(R.drawable.trending + "", ""));
+        listTrending.add(new TrendingModels(R.drawable.trending + "", ""));
 
         artistAdapter = new ArtistRvAdapter(listArtist);
         RvArtist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
