@@ -25,8 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.Activities.MusicScreen;
+import com.example.musicandroid.Activities.Setting;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +50,7 @@ public class PlaylistActivity extends AppCompatActivity {
     Button btn_choose;
     ImageView img_chosen;
     PlaylistAdapter adapter;
+    BottomNavigationView bottomNavigationView;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Playlist");
     private Uri imgUri;
 
@@ -59,6 +63,7 @@ public class PlaylistActivity extends AppCompatActivity {
         btnLocalSong = findViewById(R.id.btn_local_song);
         btnLikedSong = findViewById(R.id.btnLikedSongs);
         recyclerViewPlaylist = findViewById(R.id.recyclerview_playlist);
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu_main_activity);
         switchIntent();
         adapter = new PlaylistAdapter(playlistsList,this);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -91,6 +96,19 @@ public class PlaylistActivity extends AppCompatActivity {
         btnLocalSong.setOnClickListener(view -> {
             Intent intent = new Intent(PlaylistActivity.this,MainActivity.class);
             startActivity(intent);
+        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId()==R.id.btn_music_page){
+                startActivity(new Intent(PlaylistActivity.this, MusicScreen.class));
+                return true;
+            }
+            else if (item.getItemId()==R.id.btn_setting){
+                startActivity(new Intent(PlaylistActivity.this, Setting.class));
+                return true;
+            }
+            else {
+                return true;
+            }
         });
     }
 
