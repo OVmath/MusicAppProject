@@ -25,7 +25,7 @@ public class Setting extends AppCompatActivity {
     FloatingActionButton btnInfoUpdate;
     TextView tvHelloAcc;
     //end
-
+    Button logout;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class Setting extends AppCompatActivity {
         bottomNavigationViewSetting = findViewById(R.id.bottom_navi_menu_setting_activity);
         btnInfoUpdate = findViewById(R.id.btnInfoUpdate);
         tvHelloAcc = findViewById(R.id.tvHelloAccMusicScreen);
-
+        logout = findViewById(R.id.logout);
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
             Toast.makeText(this, GoogleSignIn.getLastSignedInAccount(this).getId(), Toast.LENGTH_SHORT).show();
             tvHelloAcc.setText("Hello " + GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
@@ -68,7 +68,12 @@ public class Setting extends AppCompatActivity {
             }
         });
         //end
-
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, Login.class));
+            }
+        });
         bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId()==R.id.btn_music_page){
