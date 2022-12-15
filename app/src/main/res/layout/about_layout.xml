@@ -8,12 +8,46 @@
     android:background="#3C0051"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:id="@+id/tillePage">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toTopOf="parent"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="About"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/contentPage"
+        android:layout_below="@+id/tillePage">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toTopOf="parent"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:text="Phần mềm nghe nhạc là một trong những ứng dụng hỗ trợ người dùng nghe nhạc hoàn toàn miễn phí cả ở chế độ online tải về để nghe offline. Phần mềm hỗ trợ người dùng nghe  hầu hết các định dạng file audio phổ biến hiện nay. Ngoài ra, phần mềm còn tích hợp nhiều widget thông minh giúp người dùng điều chỉnh âm lượng bằng cách vuốt dọc theo chiều thanh phát nhạc để tăng và theo chiều ngược lại để giảm âm lượng. Ngoài ra, phần mềm còn chứa kho video đa dạng cập nhật liên tục danh sách video ca nhạc ra mắt mới nhất. Download nhạc miễn phí về máy ở định dạng 128 kbps. Mời tải v ề phần mềm mềm nghe nhạc có lời cho android: Zing Mp3 ở liên kết bên dưới đây."/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/contentPage"
         >
         <Button
             android:layout_width="wrap_content"

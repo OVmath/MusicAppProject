@@ -8,12 +8,46 @@
     android:background="#3C0051"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:id="@+id/tillePage">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toTopOf="parent"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Help And Support"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/contentPage"
+        android:layout_below="@+id/tillePage">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toTopOf="parent"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:text="Hỗ trợ người dùng nghe và tải nhạc miễn phí với giao diện trực quan dễ dàng thao tác và sử dụng. Nhaccuatui cho phép người dùng có thể hát karaoke trực tiếp trên nền nhạc beat. Kho nhạc và video chất lượng cao khổng lồ về đủ mọi thể loại nhạc trong và ngoài nước đang chờ bạn khám phá. Ngoài ra, với tài khoản đăng nhập, người dùng được tạo playlist để lưu lại danh sách bài hát và chơi nhạc ở bất cứ đâu bạn muốn."/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/contentPage"
         >
         <Button
             android:layout_width="wrap_content"
