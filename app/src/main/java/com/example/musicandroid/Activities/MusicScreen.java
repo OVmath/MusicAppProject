@@ -12,12 +12,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
 import com.example.musicandroid.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -33,11 +38,45 @@ public class MusicScreen extends AppCompatActivity {
     ArrayList<ArtistModels> listArtist, listLastestRelease;
     ArrayList<TrendingModels> listTrending;
     BottomNavigationView bottomNavigationView;
+    TextView tvHelloAcc;
+    //liem code start
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+    GoogleSignInClient gsc = GoogleSignIn.getClient(this, signInOptions);
+    //end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_screen);
+
+        //Liem code start
+        tvHelloAcc = findViewById(R.id.tvHelloAccMusicScreen);
+        if (GoogleSignIn.getLastSignedInAccount(this) != null){
+            Toast.makeText(this, "GG", Toast.LENGTH_SHORT).show();
+            tvHelloAcc.setText("Hello " + GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
+        }
+        else if (auth.getCurrentUser() != null){
+            tvHelloAcc.setText("Hello " + auth.getCurrentUser().getEmail());
+        }
+        else {
+            startActivity(new Intent(getApplicationContext(), OnboardingScreen1.class));
+        }
+        /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
+                        try {
+                            Toast.makeText(MainActivity.this, "Facebook", Toast.LENGTH_SHORT).show();
+                            tvHelloAcc.setText("Hello " + jsonObject.getString("name"));
+                        }
+                        catch (Exception ex) {
+                            Toast.makeText(MainActivity.this, ex + "", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+        });*/
+        //end
 
         RvArtist = findViewById(R.id.rvArtist);
         RvTrending = findViewById(R.id.rvTrending);
