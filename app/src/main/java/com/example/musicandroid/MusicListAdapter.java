@@ -1,5 +1,6 @@
 package com.example.musicandroid;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +20,9 @@ import java.util.ArrayList;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder> {
     ArrayList<SongObject> songsList;
-    Context context;
+    Activity context;
 
-    public MusicListAdapter(ArrayList<SongObject> songsList, Context context) {
+    public MusicListAdapter(ArrayList<SongObject> songsList, Activity context) {
         this.songsList = songsList;
         this.context = context;
     }
@@ -30,7 +31,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     @Override
     public MusicListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_song,parent,false);
-        return new MusicListAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -70,6 +71,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 //            });
 //            dialog.show();
 //        });
+        holder.imgMenu.setOnClickListener(view -> ((MainActivity) context).showDialogMenu(songData));
     }
 
     @Override
@@ -77,7 +79,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         return songsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView titleTextView;
         ImageView iconImageView;
         ImageView imgMenu;

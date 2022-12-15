@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,7 +60,7 @@ public class PlaylistActivity extends AppCompatActivity {
         btnLikedSong = findViewById(R.id.btnLikedSongs);
         recyclerViewPlaylist = findViewById(R.id.recyclerview_playlist);
         switchIntent();
-        adapter = new PlaylistAdapter(playlistsList,getApplicationContext());
+        adapter = new PlaylistAdapter(playlistsList,this);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -159,7 +160,19 @@ public class PlaylistActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (recyclerViewPlaylist!=null){
-            recyclerViewPlaylist.setAdapter(new PlaylistAdapter(playlistsList,getApplicationContext()));
+            recyclerViewPlaylist.setAdapter(new PlaylistAdapter(playlistsList,PlaylistActivity.this));
         }
+    }
+
+    public void showDialogMenu(PlaylistObject playlistData) {
+        Dialog dialog = new Dialog(PlaylistActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        dialog.setContentView(R.layout.dialog_menu);
+        TextView tvTitle = dialog.findViewById(R.id.tvTitle);
+        Button btn_edit   = dialog.findViewById(R.id.btn_edit);
+        Button btn_delete = dialog.findViewById(R.id.btn_delete);
+        Button exit = dialog.findViewById(R.id.btn_exit);
+        exit.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
     }
 }

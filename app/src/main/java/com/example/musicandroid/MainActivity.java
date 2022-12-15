@@ -8,16 +8,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.Activities.MusicScreen;
+import com.example.musicandroid.Activities.Setting;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnAddMusic;
     Button btnPlaylist;
     Button btnLikedSongs;
-
+    BottomNavigationView bottomNavigationView;
     ArrayList<SongObject> songsList = new ArrayList<>();
     MusicListAdapter adapter;
+
     DatabaseReference databaseReference =
             FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
                     .getReference("Songs");
@@ -46,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddMusic = findViewById(R.id.imgAdd);
         btnPlaylist = findViewById(R.id.btnPlaylist);
         btnLikedSongs = findViewById(R.id.btnLikedSongs);
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu);
         switchIntent();
         if(!checkPermission()){
             requestPermission();
@@ -66,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 ////                adapter.notifyDataSetChanged();
 //
 //        }
-        adapter = new MusicListAdapter(songsList,getApplicationContext());
+        adapter = new MusicListAdapter(songsList,MainActivity.this);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     SongObject songObject = snapshot1.getValue(SongObject.class);
                     songsList.add(songObject);
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -83,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -106,6 +114,20 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId()==R.id.btn_music_page){
+                startActivity(new Intent(MainActivity.this,MusicScreen.class));
+                return true;
+            }
+            else if (item.getItemId()==R.id.btn_setting){
+                startActivity(new Intent(MainActivity.this,Setting.class));
+                return true;
+            }
+            else {
+                return true;
+            }
+        });
     }
 
     boolean checkPermission(){
@@ -124,7 +146,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(recyclerView!=null){
-            recyclerView.setAdapter(new MusicListAdapter(songsList,getApplicationContext()));
+            recyclerView.setAdapter(new MusicListAdapter(songsList,MainActivity.this));
         }
     }
+
+    public void showDialogMenu(SongObject songObject) {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        dialog.setContentView(R.layout.dialog_menu);
+        TextView tvTitle = dialog.findViewById(R.id.tvTitle);
+        Button btn_edit   = dialog.findViewById(R.id.btn_edit);
+        Button btn_delete = dialog.findViewById(R.id.btn_delete);
+        Button exit = dialog.findViewById(R.id.btn_exit);
+        exit.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
+    }
+
 }

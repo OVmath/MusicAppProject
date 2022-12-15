@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
 import com.example.musicandroid.R;
@@ -74,15 +75,19 @@ public class MusicScreen extends AppCompatActivity {
         RvLateRelease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RvLateRelease.setAdapter(lateReleaseAdapter);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.btn_setting:
-                        startActivity(new Intent(MusicScreen.this, Setting.class));
-                }
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId()==R.id.btn_home){
+                startActivity(new Intent(MusicScreen.this,MainActivity.class));
                 return true;
             }
+            else if (item.getItemId()==R.id.btn_setting){
+                startActivity(new Intent(MusicScreen.this,Setting.class));
+                return true;
+            }
+            else {
+                return true;
+            }
+//            return true;
         });
     }
 
