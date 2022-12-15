@@ -1,13 +1,11 @@
 package com.example.musicandroid.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +35,6 @@ public class MusicScreen extends AppCompatActivity {
     TextView tvHelloAcc;
     //liem code start
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-    GoogleSignInClient gsc = GoogleSignIn.getClient(MusicScreen.this, signInOptions);
     BottomNavigationView bottomNavigationView;
     //liem end
 
@@ -78,7 +74,7 @@ public class MusicScreen extends AppCompatActivity {
         RvArtist = findViewById(R.id.rvArtist);
         RvTrending = findViewById(R.id.rvTrending);
         RvLateRelease = findViewById(R.id.rvLateRelease);
-        bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu_main_activity);
 
         listArtist = new ArrayList<>();
         listTrending = new ArrayList<>();

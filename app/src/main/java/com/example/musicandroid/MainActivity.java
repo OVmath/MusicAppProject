@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
         //end
 
-        bottomNavigationView = findViewById(R.id.bottom_navi_menu);
+        bottomNavigationView = findViewById(R.id.bottom_navi_menu_main_activity);
         switchIntent();
         if(!checkPermission()){
             requestPermission();
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(recyclerView!=null){
-            recyclerView.setAdapter(new MusicListAdapter(songsList,getApplicationContext()));
+            recyclerView.setAdapter(new MusicListAdapter(songsList,MainActivity.this));
         }
     }
 
