@@ -30,6 +30,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Activities.about"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activities.helpAndSupport"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddSongActivity"
             android:exported="false">
             <meta-data

@@ -308,10 +308,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:id="@+id/aboutUs"
                         android:orientation="vertical">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnInfoUpdate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -320,7 +320,6 @@
                             tools:srcCompat="@drawable/ic_info" />
 
                         <TextView
-                            android:id="@+id/tvInfoUpdate"
                             android:layout_width="67dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -334,10 +333,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:gravity="center"
+                        android:id="@+id/helpSupport"
                         android:orientation="vertical">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/floatingActionButton2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -346,7 +345,7 @@
                             tools:srcCompat="@drawable/ic_help" />
 
                         <TextView
-                            android:id="@+id/textView13"
+
                             android:layout_width="67dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"

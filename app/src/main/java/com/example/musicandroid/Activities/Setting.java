@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ public class Setting extends AppCompatActivity {
     TextView tvHelloAcc;
     //end
     Button logout;
+    LinearLayout aboutUs;
+    LinearLayout helpSupport;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,10 @@ public class Setting extends AppCompatActivity {
         bottomNavigationViewSetting = findViewById(R.id.bottom_navi_menu_setting_activity);
         btnInfoUpdate = findViewById(R.id.btnInfoUpdate);
         tvHelloAcc = findViewById(R.id.tvHelloAccMusicScreen);
+        aboutUs = findViewById(R.id.aboutUs);
+        helpSupport = findViewById(R.id.helpSupport);
         logout = findViewById(R.id.logout);
+
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
             Toast.makeText(this, GoogleSignIn.getLastSignedInAccount(this).getId(), Toast.LENGTH_SHORT).show();
             tvHelloAcc.setText("Hello " + GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
@@ -72,6 +78,18 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Setting.this, Login.class));
+            }
+        });
+        helpSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, about.class));
+            }
+        });
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, helpAndSupport.class));
             }
         });
         bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
