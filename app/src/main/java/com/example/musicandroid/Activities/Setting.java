@@ -34,7 +34,7 @@ public class Setting extends AppCompatActivity {
     //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
     BottomNavigationView bottomNavigationViewSetting;
-    FloatingActionButton btnInfoUpdate;
+    FloatingActionButton btnInfoUpdate, btnChangePass;
     TextView tvHelloAcc, tvHelloAcc2;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
@@ -55,6 +55,7 @@ public class Setting extends AppCompatActivity {
         //liem code
         bottomNavigationViewSetting = findViewById(R.id.bottom_navi_menu_setting_activity);
         btnInfoUpdate = findViewById(R.id.btnInfoUpdate);
+        btnChangePass = findViewById(R.id.btnChangePass);
         tvHelloAcc = findViewById(R.id.tvHelloAccMusicScreen);
         tvHelloAcc2 = findViewById(R.id.tvHelloAccMusicScreen2);
         aboutUs = findViewById(R.id.aboutUs);
@@ -105,6 +106,13 @@ public class Setting extends AppCompatActivity {
 
             }
         });
+
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, ActivityChangePassword.class));
+            }
+        });
         //liem end
 
         btnInfoUpdate.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +121,6 @@ public class Setting extends AppCompatActivity {
                 startActivity(new Intent(Setting.this, SuaInfoActivity.class));
             }
         });
-        //end
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

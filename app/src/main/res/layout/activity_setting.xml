@@ -198,7 +198,7 @@
                         android:orientation="vertical">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnInfoUpdate"
+                            android:id="@+id/btnDataSaver"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -207,11 +207,11 @@
                             tools:srcCompat="@drawable/ic_data_saver_off_24" />
 
                         <TextView
-                            android:id="@+id/tvInfoUpdate"
+                            android:id="@+id/tvDataSaver"
                             android:layout_width="67dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Info update"
+                            android:text="Data Saver"
                             android:textColor="#FFFCFC"
                             android:textSize="14sp" />
 

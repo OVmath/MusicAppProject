@@ -14,11 +14,9 @@ import android.widget.Toast;
 import com.example.musicandroid.Models.UserModels;
 import com.example.musicandroid.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,9 +34,9 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        TK = findViewById(R.id.edtEmailSignUp);
-        MK = findViewById(R.id.edtSignUpPass);
-        XacNhanMK = findViewById(R.id.edtConfirmPass);
+        TK = findViewById(R.id.edtChangeCurPass);
+        MK = findViewById(R.id.edtChangeNewPass);
+        XacNhanMK = findViewById(R.id.edtChangeConfirmNewPass);
         txtCoTK = findViewById(R.id.txtCoTK);
         DK = findViewById(R.id.btnSignUp);
         auth = FirebaseAuth.getInstance();
