@@ -28,14 +28,20 @@ import android.widget.Toast;
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
 import com.example.musicandroid.Activities.helpAndSupport;
+import com.example.musicandroid.Models.UserModels;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -55,10 +61,68 @@ public class PlaylistActivity extends AppCompatActivity {
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Playlist");
     private Uri imgUri;
 
+    //liem code
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    GoogleSignInOptions signInOptions;
+    GoogleSignInClient gsc;
+    UserModels userModels;
+    String UID;
+    ImageView AnhDaiDienMain;
+    DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getReference("user");
+    //end
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
+
+        //liem code
+        AnhDaiDienMain = findViewById(R.id.avatar);
+        signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this, signInOptions);
+        if (GoogleSignIn.getLastSignedInAccount(this) != null){
+            UID = GoogleSignIn.getLastSignedInAccount(this).getId();
+        }
+        else if (auth.getCurrentUser() != null){
+            UID = auth.getCurrentUser().getUid();
+        }
+        /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
+                        try {
+                            Toast.makeText(MainActivity.this, "Facebook", Toast.LENGTH_SHORT).show();
+                            tvHelloAcc.setText("Hello " + jsonObject.getString("name"));
+                        }
+                        catch (Exception ex) {
+                            Toast.makeText(MainActivity.this, ex + "", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+        });*/
+
+        database.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    if (UID.equals(snapshot1.child("uid").getValue().toString())){
+                        userModels = snapshot1.getValue(UserModels.class);
+                    }
+                }
+                Picasso.with(PlaylistActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //liem end
+
         addPlaylist = findViewById(R.id.imgAddPlalist);
         addPlaylistEven();
         btnLocalSong = findViewById(R.id.btn_local_song);

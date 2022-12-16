@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
+import com.example.musicandroid.Models.UserModels;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.OnboardingScreen1;
@@ -31,12 +32,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnAddMusic;
     Button btnPlaylist;
     Button btnLikedSongs;
-    TextView tvHelloAcc;
 
     BottomNavigationView bottomNavigationView;
     ArrayList<SongObject> songsList = new ArrayList<>();
@@ -55,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference =
             FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
                     .getReference("Songs");
-    //liem code start
+    //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    TextView tvHelloAcc;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
+    UserModels userModels;
+    String UID;
+    ImageView AnhDaiDienMain;
+    DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getReference("user");
     //end
 
     @Override
@@ -71,19 +79,16 @@ public class MainActivity extends AppCompatActivity {
         btnLikedSongs = findViewById(R.id.btnLikedSongs);
         tvHelloAcc = findViewById(R.id.tvHelloAcc);
 
-        //Liem code start
-
+        //liem code
+        tvHelloAcc = findViewById(R.id.tvHelloAcc);
+        AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
-            Toast.makeText(this, GoogleSignIn.getLastSignedInAccount(this).getId(), Toast.LENGTH_SHORT).show();
-            tvHelloAcc.setText("Hello " + GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
+            UID = GoogleSignIn.getLastSignedInAccount(this).getId();
         }
         else if (auth.getCurrentUser() != null){
-            tvHelloAcc.setText("Hello " + auth.getCurrentUser().getEmail());
-        }
-        else {
-            startActivity(new Intent(getApplicationContext(), OnboardingScreen1.class));
+            UID = auth.getCurrentUser().getUid();
         }
         /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
         GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken,
@@ -99,7 +104,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
         });*/
-        //end
+
+        database.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    if (UID.equals(snapshot1.child("uid").getValue().toString())){
+                        userModels = snapshot1.getValue(UserModels.class);
+                    }
+                }
+                tvHelloAcc.setText(userModels.getTenHT());
+                Picasso.with(MainActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //liem end
 
         bottomNavigationView = findViewById(R.id.bottom_navi_menu_main_activity);
         switchIntent();

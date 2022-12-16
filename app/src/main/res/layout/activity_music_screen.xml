@@ -49,12 +49,12 @@
                     android:textColor="#FBFBFB"
                     android:textSize="40sp" />
 
-                <ImageView
-                    android:id="@+id/imageView15"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAnhMusic"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_margin="10dp"
-                    app:srcCompat="@drawable/ic_user_24" />
+                    android:src="@drawable/ic_user_24" />
 
             </LinearLayout>
 

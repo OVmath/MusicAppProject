@@ -1,23 +1,32 @@
 package com.example.musicandroid.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
+import com.example.musicandroid.Models.UserModels;
 import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,29 +40,34 @@ public class MusicScreen extends AppCompatActivity {
     TrendingRvAdapter trendingAdapter;
     ArrayList<ArtistModels> listArtist, listLastestRelease;
     ArrayList<TrendingModels> listTrending;
-
-    TextView tvHelloAcc;
-    //liem code start
+    //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    TextView tvHelloAcc;
+    GoogleSignInOptions signInOptions;
+    GoogleSignInClient gsc;
+    UserModels userModels;
+    String UID;
+    ImageView AnhDaiDienMain;
+    DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getReference("user");
+    //end
     BottomNavigationView bottomNavigationView;
-    //liem end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_screen);
 
-        //Liem code start
+        //liem code
         tvHelloAcc = findViewById(R.id.tvHelloAccMusicScreen);
+        AnhDaiDienMain = findViewById(R.id.imgAnhMusic);
+        signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this, signInOptions);
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
-            Toast.makeText(this, "GG", Toast.LENGTH_SHORT).show();
-            tvHelloAcc.setText("Hello " + GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
+            UID = GoogleSignIn.getLastSignedInAccount(this).getId();
         }
         else if (auth.getCurrentUser() != null){
-            tvHelloAcc.setText("Hello " + auth.getCurrentUser().getEmail());
-        }
-        else {
-            startActivity(new Intent(getApplicationContext(), OnboardingScreen1.class));
+            UID = auth.getCurrentUser().getUid();
         }
         /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
         GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken,
@@ -69,7 +83,28 @@ public class MusicScreen extends AppCompatActivity {
                         }
                     }
         });*/
-        //end
+
+        database.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    if (UID.equals(snapshot1.child("uid").getValue().toString())){
+                        userModels = snapshot1.getValue(UserModels.class);
+                    }
+                }
+                tvHelloAcc.setText(userModels.getTenHT());
+                Picasso.with(MusicScreen.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //liem end
 
         RvArtist = findViewById(R.id.rvArtist);
         RvTrending = findViewById(R.id.rvTrending);
