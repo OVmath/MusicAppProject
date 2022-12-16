@@ -31,16 +31,18 @@
         android:textColorHint="#66FFFFFF" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnSuaAnhDaiDien"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chọn ảnh"
         android:textColor="#FFFFFF" />
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imgSuaAnhDaiDien"
+        android:scaleType="fitXY"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="#3C0051"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
