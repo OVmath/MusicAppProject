@@ -30,7 +30,7 @@ import java.util.List;
 public class AddSongActivity extends AppCompatActivity {
     Button btn_choose;
     ImageView img_chosen;
-
+    Button btn_exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class AddSongActivity extends AppCompatActivity {
 
         btn_choose = findViewById(R.id.btn_image);
         img_chosen = findViewById(R.id.image);
-
+        btn_exit   = findViewById(R.id.btn_exit);
         ActivityResultLauncher<String> imageResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 result -> {
@@ -49,7 +49,12 @@ public class AddSongActivity extends AppCompatActivity {
                 });
 
         btn_choose.setOnClickListener(view -> imageResultLauncher.launch("image/*"));
+        btn_exit.setOnClickListener(view -> {
+//            Intent intent = new Intent(AddSongActivity.this,MainActivity.class);
+//            startActivity(intent);
+            finish();
 
+        });
 
     }
 }

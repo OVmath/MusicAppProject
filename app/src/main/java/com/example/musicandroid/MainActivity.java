@@ -11,6 +11,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -107,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
             requestPermission();
             return;
         }
-//        String[] projection = {
-//                MediaStore.Audio.Media.TITLE,
-//                MediaStore.Audio.Media.DATA,
-//                MediaStore.Audio.Media.DURATION
-//        };
+        String[] projection = {
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.DURATION
+        };
 
 //        String selection = MediaStore.Audio.Media.IS_MUSIC +" != 0";
 //        Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,projection,selection,null,null);
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddMusic.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,AddSongActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {

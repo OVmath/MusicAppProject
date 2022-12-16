@@ -18,6 +18,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     TextView titleTv,currentTimeTv,totalTimeTv;
     SeekBar seekBar;
     ImageView pausePlay,nextBtn,previousBtn,musicIcon;
+    ImageView img_back;
     ArrayList<SongObject> songsList;
     SongObject currentSong;
     MediaPlayer mediaPlayer = MyMediaPlayer.getInstance();
@@ -35,7 +36,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.next);
         previousBtn = findViewById(R.id.previous);
         musicIcon = findViewById(R.id.imgSong);
-
+        img_back = findViewById(R.id.img_back);
+        img_back.setOnClickListener(view -> {
+            mediaPlayer.reset();
+            finish();
+        });
         titleTv.setSelected(true);
 
         songsList = (ArrayList<SongObject>) getIntent().getSerializableExtra("LIST");
