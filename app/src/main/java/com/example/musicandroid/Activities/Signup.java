@@ -11,11 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.Models.UserModels;
 import com.example.musicandroid.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Signup extends AppCompatActivity {
 
@@ -23,6 +28,8 @@ public class Signup extends AppCompatActivity {
     EditText TK, MK, XacNhanMK;
     Button DK;
     FirebaseAuth auth;
+    DatabaseReference database;
+    UserModels user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,8 @@ public class Signup extends AppCompatActivity {
         txtCoTK = findViewById(R.id.txtCoTK);
         DK = findViewById(R.id.btnSignUp);
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("user");
 
         DK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +71,17 @@ public class Signup extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        Toast.makeText(Signup.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                        user = new UserModels(auth.getCurrentUser().getUid());
+                        database.push().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(Signup.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Signup.this, Login.class));
+                                }
+                            }
+                        });
+
                     }
                     else {
                         Toast.makeText(Signup.this, "Tên đăng nhập không phù hợp", Toast.LENGTH_SHORT).show();

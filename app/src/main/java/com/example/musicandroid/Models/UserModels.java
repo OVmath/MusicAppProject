@@ -1,31 +1,33 @@
 package com.example.musicandroid.Models;
 
-import com.example.musicandroid.PlaylistObject;
 import com.example.musicandroid.SongObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class userModels implements Serializable {
+public class UserModels implements Serializable {
     //Liem code start
-    private String UID, LinkAnh, GioiTinh;
+    private String UID, LinkAnh, GioiTinh, TenHT;
     private ArrayList<String> listPlayList, listLikeSongs;
     private ArrayList<SongObject> listSong;
 
-    public userModels() {
+    public UserModels() {
     }
 
-    private userModels(String UID){
+    public UserModels(String UID){
         this.UID = UID;
+        LinkAnh = "";
+        GioiTinh = "";
+        TenHT = "";
+        this.listPlayList = new ArrayList<>();
+        this.listLikeSongs = new ArrayList<>();
+        this.listSong = new ArrayList<>();
     }
 
-    public userModels(String UID, String linkAnh, String gioiTinh, ArrayList<String> listPlayList, ArrayList<String> listLikeSongs, ArrayList<SongObject> listSong) {
-        this.UID = UID;
+    public UserModels(String linkAnh, String gioiTinh, String tenHT) {
         LinkAnh = linkAnh;
         GioiTinh = gioiTinh;
-        this.listPlayList = listPlayList;
-        this.listLikeSongs = listLikeSongs;
-        this.listSong = listSong;
+        TenHT = tenHT;
     }
 
     public String getUID() {
@@ -74,6 +76,14 @@ public class userModels implements Serializable {
 
     public void setListSong(ArrayList<SongObject> listSong) {
         this.listSong = listSong;
+    }
+
+    public String getTenHT() {
+        return TenHT;
+    }
+
+    public void setTenHT(String tenHT) {
+        TenHT = tenHT;
     }
 
     //end

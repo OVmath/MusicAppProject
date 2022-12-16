@@ -11,7 +11,7 @@
     tools:context=".Activities.SuaInfoActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/edtSuaTenHT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -21,7 +21,7 @@
         android:textColorHint="#66FFFFFF" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/edtSuaGioi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -42,4 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnLuuSua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lưu" />
 </LinearLayout>
