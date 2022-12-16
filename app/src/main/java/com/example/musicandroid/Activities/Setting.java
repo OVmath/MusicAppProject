@@ -83,13 +83,13 @@ public class Setting extends AppCompatActivity {
         helpSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Setting.this, about.class));
+                startActivity(new Intent(Setting.this, helpAndSupport.class));
             }
         });
         aboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Setting.this, helpAndSupport.class));
+                startActivity(new Intent(Setting.this, about.class));
             }
         });
         bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
