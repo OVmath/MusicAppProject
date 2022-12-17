@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-
+import java.io.File;
 import java.util.List;
 
 
@@ -34,11 +34,13 @@ public class AddSongActivity extends AppCompatActivity {
     Button btnChonBH, btnThemLoi, btnLuu;
     ImageView img_chosen;
     Button btn_exit;
+    String link_song;
+    SongObject songObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_song);
-
+        songObject = new SongObject();
         btn_choose = findViewById(R.id.btn_image);
         img_chosen = findViewById(R.id.image);
         btn_exit   = findViewById(R.id.btn_exit);
@@ -57,6 +59,20 @@ public class AddSongActivity extends AppCompatActivity {
                 });
 
         btn_choose.setOnClickListener(view -> imageResultLauncher.launch("image/*"));
+        //Chọn nhạc
+        ActivityResultLauncher<String> audioResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                result -> {
+                    if (result != null) {
+                        link_song = result.toString();
+                        if (new File(link_song).exists()){
+
+                        }
+                        Toast.makeText(getBaseContext(), result.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        btnChonBH.setOnClickListener(view -> audioResultLauncher.launch("audio/*"));
+        //Exit
         btn_exit.setOnClickListener(view -> {
 //            Intent intent = new Intent(AddSongActivity.this,MainActivity.class);
 //            startActivity(intent);
