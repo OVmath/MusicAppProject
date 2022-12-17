@@ -33,6 +33,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="15dp"
         />
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_btn_add"
+        android:layout_marginBottom="15dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

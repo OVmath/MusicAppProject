@@ -11,6 +11,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(MainActivity.this,"Errror",Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddMusic.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,AddSongActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
