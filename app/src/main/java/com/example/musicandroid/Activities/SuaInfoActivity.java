@@ -75,7 +75,6 @@ public class SuaInfoActivity extends AppCompatActivity {
         listUser = new ArrayList<>();
         userModels = new UserModels();
         UID = "";
-        userModels = new UserModels();
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
