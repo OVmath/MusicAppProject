@@ -121,8 +121,7 @@ public class SuaInfoActivity extends AppCompatActivity {
                     edtSuaGioi.setHint("chưa chỉnh giới tính");
                 }
                 else edtSuaGioi.setText(gioi);
-
-                Picasso.with(SuaInfoActivity.this).load(userModels.getLinkAnh()).into(imgSuaAnh);
+                if (!userModels.getLinkAnh().equals("")) Picasso.with(SuaInfoActivity.this).load(userModels.getLinkAnh()).into(imgSuaAnh);
 
             }
 

@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (userModels.getTenHT().equals("")){
-                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị tên hiển thị");
+                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị");
                 }
                 else tvHelloAcc.setText(userModels.getTenHT());
                 if (!userModels.getLinkAnh().equals("")){

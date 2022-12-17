@@ -96,7 +96,8 @@ public class Setting extends AppCompatActivity {
                     }
                 }
                 if (userModels.getTenHT().equals("")){
-                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị cập nhật tên hiển thị");
+                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị");
+                    tvHelloAcc.setTextSize(20);
                     tvHelloAcc2.setText("");
                 }
                 else{
