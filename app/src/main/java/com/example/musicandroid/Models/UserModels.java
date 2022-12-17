@@ -14,6 +14,7 @@ public class UserModels implements Serializable {
     public UserModels() {
         this.TenHT = "";
         this.LinkAnh = "";
+        this.listSong = new ArrayList<>();
     }
 
     public UserModels(String UID){

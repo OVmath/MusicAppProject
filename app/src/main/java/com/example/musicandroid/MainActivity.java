@@ -123,6 +123,16 @@ public class MainActivity extends AppCompatActivity {
                 if (!userModels.getLinkAnh().equals("")){
                     Picasso.with(MainActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
                 }
+                if (userModels.getListSong() == null){
+                    Toast.makeText(MainActivity.this, "Không có bài hát nào trong tài khoản", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    songsList = userModels.getListSong();
+                    adapter = new MusicListAdapter(songsList,MainActivity.this);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerView.setAdapter(adapter);
+                }
 
 
             }
@@ -155,25 +165,8 @@ public class MainActivity extends AppCompatActivity {
 ////                adapter.notifyDataSetChanged();
 //
 //        }
-        adapter = new MusicListAdapter(songsList,MainActivity.this);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                    SongObject songObject = snapshot1.getValue(SongObject.class);
-                    songsList.add(songObject);
-                }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this,"Errror",Toast.LENGTH_SHORT).show();
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
 
     }
 

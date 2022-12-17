@@ -66,7 +66,7 @@ public class AddSongActivity extends AppCompatActivity {
     Uri uriAnh, uriNhac;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
-    StorageReference reference;
+    StorageReference referenceNhac, referenceAnh;
     String key;
     //end
 
@@ -111,10 +111,8 @@ public class AddSongActivity extends AppCompatActivity {
                 result -> {
                     if (result != null) {
                         //link_song = result.toString();
-                        if (new File(result.toString()).exists()){
-                            uriNhac = result;
-                        }
-                        Toast.makeText(getBaseContext(), result.toString(), Toast.LENGTH_LONG).show();
+                        uriNhac = result;
+                        Toast.makeText(getBaseContext(), uriNhac.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
         btnChonBH.setOnClickListener(view -> audioResultLauncher.launch("audio/*"));
@@ -148,10 +146,10 @@ public class AddSongActivity extends AppCompatActivity {
                         ProgressDialog dialog = new ProgressDialog(AddSongActivity.this);
                         dialog.show();
 
-                        reference = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
+                        referenceNhac = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
                                 .getReference("Nhac").child(uriNhac.getLastPathSegment());
 
-                        reference.putFile(uriNhac).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        referenceNhac.putFile(uriNhac).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
@@ -163,12 +161,6 @@ public class AddSongActivity extends AppCompatActivity {
 
                                 UpAnhLenStorage();
 
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(AddSongActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
                             }
                         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -196,10 +188,10 @@ public class AddSongActivity extends AppCompatActivity {
         ProgressDialog dialog = new ProgressDialog(AddSongActivity.this);
         dialog.show();
 
-        reference = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
+        referenceAnh = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
                 .getReference("AnhNhac").child(uriNhac.getLastPathSegment());
 
-        reference.putFile(uriAnh).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        referenceAnh.putFile(uriAnh).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
@@ -220,12 +212,6 @@ public class AddSongActivity extends AppCompatActivity {
                     }
                 });
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddSongActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
