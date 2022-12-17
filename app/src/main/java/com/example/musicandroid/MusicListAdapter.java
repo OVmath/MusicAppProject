@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     public void onBindViewHolder(@NonNull MusicListAdapter.ViewHolder holder, int position) {
         SongObject songData = songsList.get(position);
         holder.titleTextView.setText(songData.getNameSong());
+        Picasso.with(context.getApplicationContext()).load(songData.getImgSong()).into(holder.iconImageView);
 //        if(MyMediaPlayer.currentIndex==position){
 //            holder.titleTextView.setTextColor(Color.parseColor("#FF0000"));
 //        }else{
@@ -71,7 +75,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 //            });
 //            dialog.show();
 //        });
-        holder.imgMenu.setOnClickListener(view -> ((MainActivity) context).showDialogMenu(songData));
+        holder.imgMenu.setOnClickListener(view -> ((MainActivity) context).showDialogMenu(songData, position));
     }
 
     @Override

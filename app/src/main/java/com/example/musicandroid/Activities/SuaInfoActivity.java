@@ -1,6 +1,5 @@
 package com.example.musicandroid.Activities;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -19,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -48,13 +47,13 @@ public class SuaInfoActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
-    UserModels userModels;
+    UserModel userModel;
     String UID;
     Uri uri;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
     StorageReference reference;
-    ArrayList<UserModels> listUser;
+    ArrayList<UserModel> listUser;
     EditText edtSuaTen, edtSuaGioi;
     Button btnLuuSua;
     String key;
@@ -73,7 +72,7 @@ public class SuaInfoActivity extends AppCompatActivity {
         btnSuaAnh = findViewById(R.id.btnSuaAnhDaiDien);
         imgSuaAnh = findViewById(R.id.imgSuaAnhDaiDien);
         listUser = new ArrayList<>();
-        userModels = new UserModels();
+        userModel = new UserModel();
         UID = "";
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
@@ -104,12 +103,12 @@ public class SuaInfoActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     if (UID.equals(snapshot1.child("uid").getValue().toString())){
-                        userModels = snapshot1.getValue(UserModels.class);
+                        userModel = snapshot1.getValue(UserModel.class);
                         key = snapshot1.getKey();
                     }
                 }
-                String ten = userModels.getTenHT();
-                String gioi = userModels.getGioiTinh();
+                String ten = userModel.getTenHT();
+                String gioi = userModel.getGioiTinh();
 
                 if (ten.equals("")){
                     edtSuaTen.setHint("chưa chỉnh tên hiển thị");
@@ -120,7 +119,7 @@ public class SuaInfoActivity extends AppCompatActivity {
                     edtSuaGioi.setHint("chưa chỉnh giới tính");
                 }
                 else edtSuaGioi.setText(gioi);
-                if (!userModels.getLinkAnh().equals("")) Picasso.with(SuaInfoActivity.this).load(userModels.getLinkAnh()).into(imgSuaAnh);
+                if (!userModel.getLinkAnh().equals("")) Picasso.with(SuaInfoActivity.this).load(userModel.getLinkAnh()).into(imgSuaAnh);
 
             }
 
@@ -151,8 +150,8 @@ public class SuaInfoActivity extends AppCompatActivity {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        userModels.setTenHT(edtSuaTen.getText().toString());
-                        userModels.setGioiTinh(edtSuaGioi.getText().toString());
+                        userModel.setTenHT(edtSuaTen.getText().toString());
+                        userModel.setGioiTinh(edtSuaGioi.getText().toString());
                         ProgressDialog dialog = new ProgressDialog(SuaInfoActivity.this);
                         dialog.show();
 
@@ -166,10 +165,10 @@ public class SuaInfoActivity extends AppCompatActivity {
                                 Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
                                 while (!task.isComplete());
                                 uri = task.getResult();
-                                userModels.setLinkAnh(uri.toString());
+                                userModel.setLinkAnh(uri.toString());
                                 dialog.dismiss();
 
-                                database.child(key).setValue(userModels).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                database.child(key).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){

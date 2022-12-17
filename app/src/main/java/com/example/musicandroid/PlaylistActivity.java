@@ -1,8 +1,5 @@
 package com.example.musicandroid;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,24 +13,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
-import com.example.musicandroid.Activities.helpAndSupport;
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -65,7 +57,7 @@ public class PlaylistActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
-    UserModels userModels;
+    UserModel userModel;
     String UID;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -109,11 +101,11 @@ public class PlaylistActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     if (UID.equals(snapshot1.child("uid").getValue().toString())){
-                        userModels = snapshot1.getValue(UserModels.class);
+                        userModel = snapshot1.getValue(UserModel.class);
                     }
                 }
-                if (!userModels.getLinkAnh().equals("")){
-                    Picasso.with(PlaylistActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                if (!userModel.getLinkAnh().equals("")){
+                    Picasso.with(PlaylistActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
 
             }

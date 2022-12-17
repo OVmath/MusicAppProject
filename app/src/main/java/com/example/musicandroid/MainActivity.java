@@ -1,6 +1,7 @@
 package com.example.musicandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,43 +10,44 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
-import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicandroid.Activities.EditActivity;
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.musicandroid.Activities.MusicScreen;
-import com.example.musicandroid.Activities.OnboardingScreen1;
-import com.example.musicandroid.Activities.Setting;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Serializable {
     RecyclerView recyclerView;
     ImageView btnAddMusic;
     Button btnPlaylist;
@@ -59,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
             FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
                     .getReference("Songs");
     //liem code
+    EditText edtSearch;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     TextView tvHelloAcc;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
-    UserModels userModels;
-    String UID;
+    UserModel userModel;
+    String UID, keyUser;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
@@ -81,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         tvHelloAcc = findViewById(R.id.tvHelloAcc);
 
         //liem code
-        tvHelloAcc = findViewById(R.id.tvHelloAcc);
+        edtSearch = findViewById(R.id.edtSearch);
+
+
+
         AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
@@ -113,27 +119,49 @@ public class MainActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     if (UID.equals(snapshot1.child("uid").getValue().toString())){
-                        userModels = snapshot1.getValue(UserModels.class);
+                        userModel = snapshot1.getValue(UserModel.class);
+                        keyUser = snapshot1.getKey();
                     }
                 }
-                if (userModels.getTenHT().equals("")){
+                if (userModel.getTenHT().equals("")){
                     tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị");
                 }
-                else tvHelloAcc.setText(userModels.getTenHT());
-                if (!userModels.getLinkAnh().equals("")){
-                    Picasso.with(MainActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                else tvHelloAcc.setText(userModel.getTenHT());
+                if (!userModel.getLinkAnh().equals("")){
+                    Picasso.with(MainActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
-                if (userModels.getListSong() == null){
+                if (userModel.getListSong() == null){
                     Toast.makeText(MainActivity.this, "Không có bài hát nào trong tài khoản", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    songsList = userModels.getListSong();
+                    songsList = userModel.getListSong();
                     adapter = new MusicListAdapter(songsList,MainActivity.this);
                     adapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     recyclerView.setAdapter(adapter);
                 }
 
+                edtSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        String s = editable.toString();
+                        /*// Create a reference to the cities collection
+                        CollectionReference citiesRef = db.collection("listSong");
+
+                        // Create a query against the collection.
+                        Query query = citiesRef.whereEqualTo("state", "CA");*/
+                    }
+                });
 
             }
 
@@ -224,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showDialogMenu(SongObject songObject) {
+    public void showDialogMenu(SongObject songObject, int position) {
         Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         dialog.setContentView(R.layout.dialog_menu);
@@ -232,6 +260,44 @@ public class MainActivity extends AppCompatActivity {
         Button btn_edit   = dialog.findViewById(R.id.btn_edit);
         Button btn_delete = dialog.findViewById(R.id.btn_delete);
         Button exit = dialog.findViewById(R.id.btn_exit);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("Object", songObject);
+                startActivity(intent);
+            }
+        });
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Xóa bài hát");
+                builder.setMessage("Bạn có chắc muốn xóa bài hát không");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        songsList.remove(songObject);
+                        userModel.setListSong(songsList);
+                        database.child(keyUser).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(MainActivity.this, "Xóa nhạc thành công", Toast.LENGTH_SHORT).show();
+                                dialogInterface.dismiss();
+                            }
+                        });
+                    }
+                }).setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog1 = builder.create();
+                dialog1.show();
+            }
+        });
         exit.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }

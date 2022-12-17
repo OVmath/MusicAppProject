@@ -9,12 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,7 +44,7 @@ public class MusicScreen extends AppCompatActivity {
     TextView tvHelloAcc;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
-    UserModels userModels;
+    UserModel userModel;
     String UID;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -91,16 +90,16 @@ public class MusicScreen extends AppCompatActivity {
 
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     if (UID.equals(snapshot1.child("uid").getValue().toString())){
-                        userModels = snapshot1.getValue(UserModels.class);
+                        userModel = snapshot1.getValue(UserModel.class);
                     }
                 }
-                if (userModels.getTenHT().equals("")){
+                if (userModel.getTenHT().equals("")){
                     tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị");
                     tvHelloAcc.setTextSize(20);
                 }
-                else tvHelloAcc.setText(userModels.getTenHT());
-                if (!userModels.getLinkAnh().equals("")){
-                    Picasso.with(MusicScreen.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                else tvHelloAcc.setText(userModel.getTenHT());
+                if (!userModel.getLinkAnh().equals("")){
+                    Picasso.with(MusicScreen.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
 
             }

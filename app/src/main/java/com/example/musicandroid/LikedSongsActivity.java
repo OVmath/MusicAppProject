@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
-import com.example.musicandroid.Activities.helpAndSupport;
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,7 +33,7 @@ public class LikedSongsActivity extends AppCompatActivity {
     TextView tvHelloAcc;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
-    UserModels userModels;
+    UserModel userModel;
     String UID;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -78,11 +77,11 @@ public class LikedSongsActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     if (UID.equals(snapshot1.child("uid").getValue().toString())){
-                        userModels = snapshot1.getValue(UserModels.class);
+                        userModel = snapshot1.getValue(UserModel.class);
                     }
                 }
-                if (!userModels.getLinkAnh().equals("")){
-                    Picasso.with(LikedSongsActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                if (!userModel.getLinkAnh().equals("")){
+                    Picasso.with(LikedSongsActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
 
             }

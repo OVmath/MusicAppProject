@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +27,7 @@ public class Signup extends AppCompatActivity {
     Button DK;
     FirebaseAuth auth;
     DatabaseReference database;
-    UserModels user;
+    UserModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class Signup extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        user = new UserModels(auth.getCurrentUser().getUid());
+                        user = new UserModel(auth.getCurrentUser().getUid());
                         database.push().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

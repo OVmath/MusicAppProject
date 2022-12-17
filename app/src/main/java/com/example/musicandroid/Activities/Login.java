@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicandroid.MainActivity;
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -30,11 +30,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
@@ -247,7 +245,7 @@ public class Login extends AppCompatActivity {
         if (requestCode == 01){
             if (resultCode == RESULT_OK){
                 GoogleSignInAccount Acc = GoogleSignIn.getLastSignedInAccount(this);
-                UserModels userModels = new UserModels(Acc.getId());
+                UserModel userModel = new UserModel(Acc.getId());
 
                 Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
                 startActivity( new Intent(Login.this, MainActivity.class));

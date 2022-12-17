@@ -1,22 +1,13 @@
 package com.example.musicandroid;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.net.Uri;
-import android.net.wifi.aware.PeerHandle;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,13 +15,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.example.musicandroid.Activities.SuaInfoActivity;
-import com.example.musicandroid.Models.UserModels;
+import com.example.musicandroid.Models.UserModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,12 +30,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Calendar;
 
 
 public class AddSongActivity extends AppCompatActivity {
@@ -61,7 +44,7 @@ public class AddSongActivity extends AppCompatActivity {
     SongObject songObject;
     //liem code start
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    UserModels userModels;
+    UserModel userModel;
     String UID;
     Uri uriAnh, uriNhac;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -83,7 +66,6 @@ public class AddSongActivity extends AppCompatActivity {
         edtTenBH = findViewById(R.id.edtName);
         edtArtist = findViewById(R.id.edtArtist);
         btnLuu = findViewById(R.id.btn_save);
-        userModels = new UserModels();
         UID = "";
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
             UID = GoogleSignIn.getLastSignedInAccount(this).getId();
@@ -112,7 +94,6 @@ public class AddSongActivity extends AppCompatActivity {
                     if (result != null) {
                         //link_song = result.toString();
                         uriNhac = result;
-                        Toast.makeText(getBaseContext(), uriNhac.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
         btnChonBH.setOnClickListener(view -> audioResultLauncher.launch("audio/*"));
@@ -135,16 +116,13 @@ public class AddSongActivity extends AppCompatActivity {
 
                         for (DataSnapshot snapshot1 : snapshot.getChildren()){
                             if (UID.equals(snapshot1.child("uid").getValue().toString())){
-                                userModels = snapshot1.getValue(UserModels.class);
+                                userModel = snapshot1.getValue(UserModel.class);
                                 key = snapshot1.getKey();
                             }
                         }
 
                         songObject.setNameSong(edtTenBH.getText().toString());
                         songObject.setArtist(edtArtist.getText().toString());
-
-                        ProgressDialog dialog = new ProgressDialog(AddSongActivity.this);
-                        dialog.show();
 
                         referenceNhac = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
                                 .getReference("Nhac").child(uriNhac.getLastPathSegment());
@@ -157,17 +135,9 @@ public class AddSongActivity extends AppCompatActivity {
                                 while (!task.isComplete());
                                 uriNhac = task.getResult();
                                 songObject.setLinkSong(uriNhac.toString());
-                                dialog.dismiss();
 
                                 UpAnhLenStorage();
 
-                            }
-                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
-                                int CurProgress = (int) progress;
-                                dialog.setMessage("Upload: " + CurProgress + "%");
                             }
                         });
 
@@ -185,8 +155,8 @@ public class AddSongActivity extends AppCompatActivity {
 
     public void UpAnhLenStorage(){
 
-        ProgressDialog dialog = new ProgressDialog(AddSongActivity.this);
-        dialog.show();
+        ProgressDialog dialog2 = new ProgressDialog(AddSongActivity.this);
+        dialog2.show();
 
         referenceAnh = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
                 .getReference("AnhNhac").child(uriNhac.getLastPathSegment());
@@ -199,10 +169,12 @@ public class AddSongActivity extends AppCompatActivity {
                 while (!task.isComplete());
                 uriAnh = task.getResult();
                 songObject.setImgSong(uriAnh.toString());
-                userModels.getListSong().add(songObject);
-                dialog.dismiss();
+                songObject.setKeySong(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+                userModel.getListSong().add(songObject);
 
-                database.child(key).setValue(userModels).addOnCompleteListener(new OnCompleteListener<Void>() {
+                dialog2.dismiss();
+
+                database.child(key).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
@@ -218,7 +190,7 @@ public class AddSongActivity extends AppCompatActivity {
             public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                 double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
                 int CurProgress = (int) progress;
-                dialog.setMessage("Upload: " + CurProgress + "%");
+                dialog2.setMessage("Upload: " + CurProgress + "%");
             }
         });
 
