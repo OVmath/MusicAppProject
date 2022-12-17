@@ -44,19 +44,25 @@ public class ActivityChangePassword extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                auth.updatePassword(edtNewPass.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                auth.updatePassword(edtNewPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
                                             Toast.makeText(ActivityChangePassword.this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                                             finish();
                                         }
+                                        else
+                                            Toast.makeText(ActivityChangePassword.this, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
+                            else
+                                Toast.makeText(ActivityChangePassword.this, "credential thất bại", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
+                
+                else Toast.makeText(ActivityChangePassword.this, "Mật khẩu mới và xác nhận mật khẩu mới chưa trùng nhau", Toast.LENGTH_SHORT).show();
             }
         });
 

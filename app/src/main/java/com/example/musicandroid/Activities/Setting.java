@@ -134,6 +134,7 @@ public class Setting extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                auth.signOut();
                 startActivity(new Intent(Setting.this, Login.class));
             }
         });
