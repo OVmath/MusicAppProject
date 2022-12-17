@@ -24,7 +24,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".EditActivity"
+            android:name=".Activities.EditActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
