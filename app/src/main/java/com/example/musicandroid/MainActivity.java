@@ -115,8 +115,14 @@ public class MainActivity extends AppCompatActivity {
                         userModels = snapshot1.getValue(UserModels.class);
                     }
                 }
-                tvHelloAcc.setText(userModels.getTenHT());
-                Picasso.with(MainActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                if (userModels.getTenHT().equals("")){
+                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị tên hiển thị");
+                }
+                else tvHelloAcc.setText(userModels.getTenHT());
+                if (!userModels.getLinkAnh().equals("")){
+                    Picasso.with(MainActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                }
+
 
             }
 

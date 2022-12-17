@@ -81,7 +81,9 @@ public class LikedSongsActivity extends AppCompatActivity {
                         userModels = snapshot1.getValue(UserModels.class);
                     }
                 }
-                Picasso.with(LikedSongsActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                if (!userModels.getLinkAnh().equals("")){
+                    Picasso.with(LikedSongsActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                }
 
             }
 

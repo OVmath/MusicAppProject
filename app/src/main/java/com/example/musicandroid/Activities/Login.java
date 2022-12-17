@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicandroid.MainActivity;
+import com.example.musicandroid.Models.UserModels;
 import com.example.musicandroid.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,6 +38,8 @@ import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
@@ -51,6 +54,8 @@ public class Login extends AppCompatActivity {
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
     CallbackManager callbackManager;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+            .getReference("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,6 +247,8 @@ public class Login extends AppCompatActivity {
         if (requestCode == 01){
             if (resultCode == RESULT_OK){
                 GoogleSignInAccount Acc = GoogleSignIn.getLastSignedInAccount(this);
+                UserModels userModels = new UserModels(Acc.getId());
+
                 Toast.makeText(this, "Đăng nhập vào " + Acc.getEmail() +  " thành công..", Toast.LENGTH_SHORT).show();
                 startActivity( new Intent(Login.this, MainActivity.class));
             }

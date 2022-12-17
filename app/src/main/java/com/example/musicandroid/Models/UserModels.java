@@ -12,6 +12,8 @@ public class UserModels implements Serializable {
     private ArrayList<SongObject> listSong;
 
     public UserModels() {
+        this.TenHT = "";
+        this.LinkAnh = "";
     }
 
     public UserModels(String UID){
@@ -79,7 +81,10 @@ public class UserModels implements Serializable {
     }
 
     public String getTenHT() {
-        return TenHT;
+        if (TenHT.equals("")){
+            return "";
+        }
+        return TenHT + "";
     }
 
     public void setTenHT(String tenHT) {

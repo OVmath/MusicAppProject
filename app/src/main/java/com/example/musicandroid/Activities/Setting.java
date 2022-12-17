@@ -95,9 +95,18 @@ public class Setting extends AppCompatActivity {
                         userModels = snapshot1.getValue(UserModels.class);
                     }
                 }
-                tvHelloAcc.setText(userModels.getTenHT());
-                tvHelloAcc2.setText(userModels.getTenHT());
-                Picasso.with(Setting.this).load(userModels.getLinkAnh()).into(AnhDaiDienSetting);
+                if (userModels.getTenHT().equals("")){
+                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị cập nhật tên hiển thị");
+                    tvHelloAcc2.setText("");
+                }
+                else{
+                    tvHelloAcc.setText(userModels.getTenHT());
+                    tvHelloAcc2.setText(userModels.getTenHT());
+                }
+
+                if (!userModels.getLinkAnh().equals("")){
+                    Picasso.with(Setting.this).load(userModels.getLinkAnh()).into(AnhDaiDienSetting);
+                }
 
             }
 

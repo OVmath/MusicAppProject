@@ -112,7 +112,9 @@ public class PlaylistActivity extends AppCompatActivity {
                         userModels = snapshot1.getValue(UserModels.class);
                     }
                 }
-                Picasso.with(PlaylistActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                if (!userModels.getLinkAnh().equals("")){
+                    Picasso.with(PlaylistActivity.this).load(userModels.getLinkAnh()).into(AnhDaiDienMain);
+                }
 
             }
 
