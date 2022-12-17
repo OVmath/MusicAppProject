@@ -43,6 +43,16 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/btn_add_lyrics"
+        android:text="Thêm lời bài hát"
+        android:textColor="@color/black"
+        android:backgroundTint="#D9D9D9"
+        android:layout_gravity="center_horizontal"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/choose_song"
         android:text="Chọn bài hát"
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#D9D9D9"

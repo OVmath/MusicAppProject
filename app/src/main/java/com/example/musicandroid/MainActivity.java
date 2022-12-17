@@ -108,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
             requestPermission();
             return;
         }
-        String[] projection = {
-                MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.DURATION
-        };
+//        String[] projection = {
+//                MediaStore.Audio.Media.TITLE,
+//                MediaStore.Audio.Media.DATA,
+//                MediaStore.Audio.Media.DURATION
+//        };
 
 //        String selection = MediaStore.Audio.Media.IS_MUSIC +" != 0";
 //        Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,projection,selection,null,null);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(MainActivity.this,"Errror",Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

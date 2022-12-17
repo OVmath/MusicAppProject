@@ -18,6 +18,6 @@ public class PlaylistItemActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-        btn_exit.setOnClickListener(view -> onDestroy());
+        btn_exit.setOnClickListener(view -> finish());
     }
 }

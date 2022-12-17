@@ -2,9 +2,11 @@ package com.example.musicandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,11 +16,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MusicPlayerActivity extends AppCompatActivity {
     TextView titleTv,currentTimeTv,totalTimeTv;
     SeekBar seekBar;
     ImageView pausePlay,nextBtn,previousBtn,musicIcon;
     ImageView img_back;
+    ImageView replay;
+    ImageView img_lyric;
+    CircleImageView img_like;
     ArrayList<SongObject> songsList;
     SongObject currentSong;
     MediaPlayer mediaPlayer = MyMediaPlayer.getInstance();
@@ -37,6 +44,18 @@ public class MusicPlayerActivity extends AppCompatActivity {
         previousBtn = findViewById(R.id.previous);
         musicIcon = findViewById(R.id.imgSong);
         img_back = findViewById(R.id.img_back);
+        img_like = findViewById(R.id.img_like);
+        replay = findViewById(R.id.img_replay);
+        img_lyric = findViewById(R.id.ic_lyrics);
+        img_lyric.setOnClickListener(view -> {
+
+        });
+        img_like.setOnClickListener(view -> {
+
+        });
+        replay.setOnClickListener(view -> {
+            setResourcesWithMusic();
+        });
         img_back.setOnClickListener(view -> {
             mediaPlayer.reset();
             finish();
