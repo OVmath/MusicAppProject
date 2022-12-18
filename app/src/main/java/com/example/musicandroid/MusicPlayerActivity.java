@@ -81,7 +81,8 @@ public class MusicPlayerActivity extends AppCompatActivity {
             setResourcesWithMusic();
         });
         img_back.setOnClickListener(view -> {
-            onBackPressed();
+            finish();
+            mediaPlayer.pause();
         });
         titleTv.setSelected(true);
         songsList = (ArrayList<SongObject>) getIntent().getSerializableExtra("LIST");
@@ -167,13 +168,14 @@ public class MusicPlayerActivity extends AppCompatActivity {
         Picasso.with(MusicPlayerActivity.this).load(currentSong.getImgSong()).into(musicIcon);
 
         titleTv.setText(currentSong.getNameSong());
-        try {
+        /*try {
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(currentSong.getLinkSong());
             mediaPlayer.prepare();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        totalTimeTv.setText(convertToMMSS(mediaPlayer.getDuration() + ""));
+        }*/
+        //totalTimeTv.setText(convertToMMSS(mediaPlayer.getDuration() + ""));
         img_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,8 +229,15 @@ public class MusicPlayerActivity extends AppCompatActivity {
         mediaPlayer.reset();
         try {
             mediaPlayer.setDataSource(currentSong.getLinkSong());
-            mediaPlayer.prepare();
-            mediaPlayer.start();
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+
+                    mediaPlayer.start();
+
+                }
+            });
             seekBar.setProgress(0);
             seekBar.setMax(mediaPlayer.getDuration());
         } catch (IOException e) {
@@ -274,6 +283,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         mediaPlayer.pause();
     }
 }

@@ -96,20 +96,17 @@
                     android:paddingTop="10dp">
 
                     <LinearLayout
+                        android:id="@+id/LayoutInfoUpdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnInfoUpdate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_info_update_setting" />
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_info_update_setting" />
 
                         <TextView
                             android:id="@+id/tvInfoUpdate"
@@ -129,14 +126,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnDownloadQuality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_download_24" />
+                            android:src="@drawable/ic_download_24" />
 
                         <TextView
                             android:id="@+id/textView13"
@@ -158,19 +152,17 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/LayoutChangePass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnChangePass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_change_circle_24" />
+                            android:src="@drawable/ic_change_circle_24" />
 
                         <TextView
                             android:id="@+id/textView13"
@@ -197,14 +189,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnDataSaver"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_data_saver_off_24" />
+                            android:src="@drawable/ic_data_saver_off_24" />
 
                         <TextView
                             android:id="@+id/tvDataSaver"
@@ -233,14 +222,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/floatingActionButton2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_download_over_data" />
+                            android:src="@drawable/ic_download_over_data" />
 
                         <TextView
                             android:id="@+id/textView13"
@@ -268,14 +254,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/floatingActionButton2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_connect_to" />
+                            android:src="@drawable/ic_connect_to" />
 
                         <TextView
                             android:id="@+id/textView13"
@@ -311,14 +294,11 @@
                         android:id="@+id/aboutUs"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:id="@+id/btnAboutUs"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_info" />
+                            android:src="@drawable/ic_info" />
 
                         <TextView
                             android:layout_width="67dp"
@@ -337,13 +317,11 @@
                         android:id="@+id/helpSupport"
                         android:orientation="vertical">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_margin="5dp"
-                            android:clickable="true"
-                            app:backgroundTint="#75FCFCFC"
-                            tools:srcCompat="@drawable/ic_help" />
+                            android:src="@drawable/ic_help" />
 
                         <TextView
 

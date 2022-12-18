@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,7 +34,7 @@ public class Setting extends AppCompatActivity {
     //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
     BottomNavigationView bottomNavigationViewSetting;
-    FloatingActionButton btnInfoUpdate, btnChangePass, btnAboutUs;
+    LinearLayout btnInfoUpdate, btnChangePass, btnAboutUs;
     TextView tvHelloAcc, tvHelloAcc2;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
@@ -52,12 +54,11 @@ public class Setting extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         //liem code
         bottomNavigationViewSetting = findViewById(R.id.bottom_navi_menu_setting_activity);
-        btnInfoUpdate = findViewById(R.id.btnInfoUpdate);
-        btnChangePass = findViewById(R.id.btnChangePass);
+        btnInfoUpdate = findViewById(R.id.LayoutInfoUpdate);
+        btnChangePass = findViewById(R.id.LayoutChangePass);
         tvHelloAcc = findViewById(R.id.tvHelloAccMusicScreen);
         tvHelloAcc2 = findViewById(R.id.tvHelloAccMusicScreen2);
         aboutUs = findViewById(R.id.aboutUs);
-        btnAboutUs = findViewById(R.id.btnAboutUs);
         helpSupport = findViewById(R.id.helpSupport);
         logout = findViewById(R.id.logout);
         AnhDaiDienSetting = findViewById(R.id.imgAnhSetting);
@@ -134,6 +135,11 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 auth.signOut();
+                SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Mail", "");
+                editor.putString("Pass", "");
+                editor.apply();
                 startActivity(new Intent(Setting.this, Login.class));
             }
         });
@@ -144,12 +150,6 @@ public class Setting extends AppCompatActivity {
             }
         });
         aboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Setting.this, about.class));
-            }
-        });
-        btnAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Setting.this, about.class));

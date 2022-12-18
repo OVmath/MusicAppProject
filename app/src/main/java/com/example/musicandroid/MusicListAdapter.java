@@ -57,7 +57,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                 MyMediaPlayer.currentIndex = position;
                 Intent intent = new Intent(context,MusicPlayerActivity.class);
                 intent.putExtra("LIST",songsList);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
             }
