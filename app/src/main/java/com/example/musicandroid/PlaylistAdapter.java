@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> {
@@ -37,6 +39,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     public void onBindViewHolder(@NonNull PlaylistAdapter.ViewHolder holder, int position) {
         PlaylistObject playlistData = playlistsList.get(position);
         holder.tvName.setText(playlistData.getNamePlaylist());
+        Picasso.with(context.getApplicationContext()).load(playlistData.getImgPath()).into(holder.imgPlaylist);
 //        holder.imgMenu.setOnClickListener(view -> {
 //            Dialog dialog = new Dialog(context);
 //            dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
@@ -73,5 +76,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             imgMenu = itemView.findViewById(R.id.imgMenu);
             tvName  = itemView.findViewById(R.id.tvPlaylist);
         }
+    }
+    public void clear(){
+        int size = playlistsList.size();
+        notifyItemRangeRemoved(0, size);
     }
 }

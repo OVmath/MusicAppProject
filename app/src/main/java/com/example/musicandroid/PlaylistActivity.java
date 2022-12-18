@@ -2,17 +2,24 @@ package com.example.musicandroid;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +33,9 @@ import com.example.musicandroid.Models.UserModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,9 +43,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PlaylistActivity extends AppCompatActivity {
     ImageView addPlaylist;
@@ -54,14 +69,18 @@ public class PlaylistActivity extends AppCompatActivity {
     private Uri imgUri;
 
     //liem code
+    EditText edtSearch;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
     UserModel userModel;
-    String UID;
+    ArrayList<PlaylistObject> playListSearch = new ArrayList<>();
+    PlaylistObject playlistObject = new PlaylistObject();
+    String UID, keyUser;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
+    StorageReference referenceAnhPlayList;
     //end
 
     @Override
@@ -70,6 +89,8 @@ public class PlaylistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_playlist);
 
         //liem code
+        edtSearch = findViewById(R.id.edtSearch);
+
         AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
@@ -102,11 +123,59 @@ public class PlaylistActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     if (UID.equals(snapshot1.child("uid").getValue().toString())){
                         userModel = snapshot1.getValue(UserModel.class);
+                        keyUser = snapshot1.getKey();
                     }
                 }
                 if (!userModel.getLinkAnh().equals("")){
                     Picasso.with(PlaylistActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
+                if (userModel.getListPlayList() == null){
+                    Toast.makeText(PlaylistActivity.this, "Không có play list nào trong tài khoản", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    playlistsList = userModel.getListPlayList();
+                    adapter = new PlaylistAdapter(playlistsList ,PlaylistActivity.this);
+                    adapter.notifyDataSetChanged();
+                    recyclerViewPlaylist.setLayoutManager(new GridLayoutManager(PlaylistActivity.this, 2));
+                    recyclerViewPlaylist.setAdapter(adapter);
+                }
+
+                ArrayList<PlaylistObject> list = playlistsList;
+                edtSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        if (!editable.toString().equals("")){
+                            playListSearch.clear();
+                            for (int i = 0; i < list.size(); i++){
+                                if (list.get(i).getNamePlaylist().contains(editable.toString())){
+                                    playListSearch.add(list.get(i));
+                                }
+                            }
+                            adapter.clear();
+                            adapter = new PlaylistAdapter(playListSearch, PlaylistActivity.this);
+                            adapter.notifyDataSetChanged();
+                            recyclerViewPlaylist.setAdapter(adapter);
+
+                        }
+                        else {
+                            adapter.clear();
+                            adapter = new PlaylistAdapter(list, PlaylistActivity.this);
+                            adapter.notifyDataSetChanged();
+                            recyclerViewPlaylist.setAdapter(adapter);
+                        }
+
+                    }
+                });
 
             }
 
@@ -124,26 +193,6 @@ public class PlaylistActivity extends AppCompatActivity {
         recyclerViewPlaylist = findViewById(R.id.recyclerview_playlist);
         bottomNavigationView = findViewById(R.id.bottom_navi_menu_main_activity);
         switchIntent();
-        adapter = new PlaylistAdapter(playlistsList,this);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                playlistsList.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()){
-
-                    PlaylistObject playlistObject = snapshot1.getValue(PlaylistObject.class);
-                    playlistsList.add(playlistObject);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        recyclerViewPlaylist.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerViewPlaylist.setAdapter(adapter);
     }
 
     private void switchIntent() {
@@ -189,14 +238,9 @@ public class PlaylistActivity extends AppCompatActivity {
 
         dialog.show();
         btnSave.setOnClickListener(view -> {
-            PlaylistObject playlistObject = new PlaylistObject();
             playlistObject.setNamePlaylist(edtPlaylistName.getText().toString());
 //            playlistsList.add(playlistObject);
-            databaseReference.push().setValue(playlistObject).addOnCompleteListener(task -> {
-                if (task.isSuccessful()){
-                    Toast.makeText(PlaylistActivity.this, "Thêm play list thành công", Toast.LENGTH_SHORT).show();
-                }
-            });
+            UpAnhPlayListLenFirebase();
             dialog.dismiss();
 //            adapter.notifyDataSetChanged();
         });
@@ -209,6 +253,48 @@ public class PlaylistActivity extends AppCompatActivity {
             startActivityForResult(Intent.createChooser(imgIntent,"Select Picture"),113);
         });
         btnDestroy.setOnClickListener(view -> dialog.dismiss());
+    }
+
+    public void UpAnhPlayListLenFirebase(){
+
+        ProgressDialog dialog2 = new ProgressDialog(PlaylistActivity.this);
+        dialog2.show();
+
+        referenceAnhPlayList = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
+                .getReference("AnhPlayList").child(imgUri.getLastPathSegment());
+
+        referenceAnhPlayList.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                while (!task.isComplete());
+                imgUri = task.getResult();
+                playlistObject.setImgPath(imgUri.toString());
+                playlistObject.setKeyPlaylist(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+                userModel.getListPlayList().add(playlistObject);
+
+                dialog2.dismiss();
+
+                database.child(keyUser).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(PlaylistActivity.this, "Thêm nhạc thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
+                int CurProgress = (int) progress;
+                dialog2.setMessage("Upload: " + CurProgress + "%");
+            }
+        });
+
     }
 
     @Override
@@ -224,6 +310,7 @@ public class PlaylistActivity extends AppCompatActivity {
                         imgUri
                 );
                 img_chosen.setImageBitmap(img);
+                playlistObject.setImgPath(String.valueOf(imgUri));
 //                databaseHelper.QueryData("UPDATE Product2 SET Img = '"+imgUri+"'"+"WHERE Id = "+p);
             }
             catch (Exception e)
@@ -249,6 +336,38 @@ public class PlaylistActivity extends AppCompatActivity {
         TextView tvTitle = dialog.findViewById(R.id.tvTitle);
         Button btn_edit   = dialog.findViewById(R.id.btn_edit);
         Button btn_delete = dialog.findViewById(R.id.btn_delete);
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlaylistActivity.this);
+                builder.setTitle("Xóa bài hát");
+                builder.setMessage("Bạn có chắc muốn xóa bài hát không");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        playlistsList.remove(playlistData);
+                        userModel.setListPlayList(playlistsList);
+                        database.child(keyUser).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(PlaylistActivity.this, "Xóa nhạc thành công", Toast.LENGTH_SHORT).show();
+                                dialogInterface.dismiss();
+                            }
+                        });
+                    }
+                }).setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog1 = builder.create();
+                dialog1.show();
+            }
+        });
+
         Button exit = dialog.findViewById(R.id.btn_exit);
         exit.setOnClickListener(view -> dialog.dismiss());
         dialog.show();

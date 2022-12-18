@@ -28,12 +28,14 @@ import com.example.musicandroid.Activities.EditActivity;
 import com.example.musicandroid.Activities.MusicScreen;
 import com.example.musicandroid.Activities.Setting;
 import com.example.musicandroid.Models.UserModel;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     Button btnLikedSongs;
 
     BottomNavigationView bottomNavigationView;
-    ArrayList<SongObject> songsList = new ArrayList<>();
+    ArrayList<SongObject> songsList = new ArrayList<>(), songListSearch = new ArrayList<>();
     MusicListAdapter adapter;
 
     DatabaseReference databaseReference =
@@ -85,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         //liem code
         edtSearch = findViewById(R.id.edtSearch);
-
-
 
         AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     recyclerView.setAdapter(adapter);
                 }
 
+                ArrayList<SongObject> list = songsList;
                 edtSearch.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -154,12 +155,26 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-                        String s = editable.toString();
-                        /*// Create a reference to the cities collection
-                        CollectionReference citiesRef = db.collection("listSong");
+                        if (!editable.toString().equals("")){
+                            songListSearch.clear();
+                            for (int i = 0; i < list.size(); i++){
+                                if (list.get(i).getNameSong().contains(editable.toString())){
+                                    songListSearch.add(songsList.get(i));
+                                }
+                            }
+                            adapter.clear();
+                            adapter = new MusicListAdapter(songListSearch, MainActivity.this);
+                            adapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(adapter);
 
-                        // Create a query against the collection.
-                        Query query = citiesRef.whereEqualTo("state", "CA");*/
+                        }
+                        else {
+                            adapter.clear();
+                            adapter = new MusicListAdapter(list, MainActivity.this);
+                            adapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(adapter);
+                        }
+
                     }
                 });
 

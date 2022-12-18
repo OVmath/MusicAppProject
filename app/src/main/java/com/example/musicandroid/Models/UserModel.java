@@ -1,5 +1,6 @@
 package com.example.musicandroid.Models;
 
+import com.example.musicandroid.PlaylistObject;
 import com.example.musicandroid.SongObject;
 
 import java.io.Serializable;
@@ -8,7 +9,8 @@ import java.util.ArrayList;
 public class UserModel implements Serializable {
     //Liem code start
     private String UID, LinkAnh, GioiTinh, TenHT;
-    private ArrayList<String> listPlayList, listLikeSongs;
+    private ArrayList<PlaylistObject> listPlayList;
+    private ArrayList<String> listLikeSongs;
     private ArrayList<SongObject> listSong;
 
     public UserModel() {
@@ -57,11 +59,11 @@ public class UserModel implements Serializable {
         GioiTinh = gioiTinh;
     }
 
-    public ArrayList<String> getListPlayList() {
+    public ArrayList<PlaylistObject> getListPlayList() {
         return listPlayList;
     }
 
-    public void setListPlayList(ArrayList<String> listPlayList) {
+    public void setListPlayList(ArrayList<PlaylistObject> listPlayList) {
         this.listPlayList = listPlayList;
     }
 

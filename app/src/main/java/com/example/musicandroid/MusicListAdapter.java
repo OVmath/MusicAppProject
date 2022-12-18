@@ -94,5 +94,9 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                 imgMenu = itemView.findViewById(R.id.imgMenu);
             }
         }
+    public void clear(){
+        int size = songsList.size();
+        notifyItemRangeRemoved(0, size);
+    }
 }
 
