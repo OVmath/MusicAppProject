@@ -1,20 +1,28 @@
 package com.example.musicandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.musicandroid.Models.UserModel;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +50,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
     UserModel userModel;
-    String UID;
+    String UID, keyUser;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
@@ -77,6 +85,32 @@ public class MusicPlayerActivity extends AppCompatActivity {
         });
         titleTv.setSelected(true);
         songsList = (ArrayList<SongObject>) getIntent().getSerializableExtra("LIST");
+
+        if (GoogleSignIn.getLastSignedInAccount(this) != null){
+            UID = GoogleSignIn.getLastSignedInAccount(this).getId();
+        }
+        else if (auth.getCurrentUser() != null){
+            UID = auth.getCurrentUser().getUid();
+        }
+
+        database.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    if (UID.equals(snapshot1.child("uid").getValue().toString())){
+                        userModel = snapshot1.getValue(UserModel.class);
+                        keyUser = snapshot1.getKey();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         setResourcesWithMusic();
 
@@ -130,6 +164,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     }
     void setResourcesWithMusic(){
         currentSong = songsList.get(MyMediaPlayer.currentIndex);
+        Picasso.with(MusicPlayerActivity.this).load(currentSong.getImgSong()).into(musicIcon);
 
         titleTv.setText(currentSong.getNameSong());
         try {
@@ -139,7 +174,31 @@ public class MusicPlayerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         totalTimeTv.setText(convertToMMSS(mediaPlayer.getDuration() + ""));
+        img_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if (currentSong.getLiked()){
+                    currentSong.setLiked(false);
+                    for (int i = 0; i < userModel.getListSong().size(); i++){
+                        if (userModel.getListSong().get(i).getKeySong().equals(currentSong.getKeySong())){
+                            database.child(keyUser).child("listSong").child(i + "").setValue(currentSong);
+                        }
+                    }
+                    img_like.setCircleBackgroundColor(Color.parseColor("#3C0051"));
+                }
+                else {
+                    currentSong.setLiked(true);
+                    for (int i = 0; i < userModel.getListSong().size(); i++){
+                        if (userModel.getListSong().get(i).getKeySong().equals(currentSong.getKeySong())){
+                            database.child(keyUser).child("listSong").child(i + "").setValue(currentSong);
+                        }
+                    }
+                    img_like.setCircleBackgroundColor(Color.RED);
+                }
+
+            }
+        });
         pausePlay.setOnClickListener(v-> pausePlay());
         nextBtn.setOnClickListener(v-> playNextSong());
         previousBtn.setOnClickListener(v-> playPreviousSong());

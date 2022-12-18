@@ -80,20 +80,19 @@
         android:minHeight="48dp"
         android:inputType="textPersonName" />
 
+
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="480dp"
-        android:id="@+id/scroll"
-        android:layout_below="@+id/layout_btn">
+        android:layout_below="@+id/edtSearch">
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_likedsongs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recyclerview_likedsongs"
-            app:layout_constraintTop_toTopOf="parent"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

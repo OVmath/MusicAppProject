@@ -2,6 +2,8 @@ package com.example.musicandroid;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class LikedSongsActivity extends AppCompatActivity {
     Button local_song;
     BottomNavigationView bottomNavigationView;
@@ -34,10 +38,13 @@ public class LikedSongsActivity extends AppCompatActivity {
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
     UserModel userModel;
+    ArrayList<SongObject> listSong = new ArrayList<>(), listLikedSong = new ArrayList<>();
+    MusicListAdapter adapter;
     String UID;
     ImageView AnhDaiDienMain;
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
+    RecyclerView recyclerView;
     //end
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,7 @@ public class LikedSongsActivity extends AppCompatActivity {
         AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
+        recyclerView = findViewById(R.id.recyclerview_likedsongs);
         if (GoogleSignIn.getLastSignedInAccount(this) != null){
             UID = GoogleSignIn.getLastSignedInAccount(this).getId();
         }
@@ -84,6 +92,18 @@ public class LikedSongsActivity extends AppCompatActivity {
                     Picasso.with(LikedSongsActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
 
+                listSong = userModel.getListSong();
+
+                for (int i = 0; i < listSong.size(); i++){
+                    if (listSong.get(i).getLiked()){
+                        listLikedSong.add(listSong.get(i));
+                    }
+                }
+
+                adapter = new MusicListAdapter(listLikedSong, LikedSongsActivity.this);
+                adapter.notifyDataSetChanged();
+                recyclerView.setLayoutManager(new LinearLayoutManager(LikedSongsActivity.this));
+                recyclerView.setAdapter(adapter);
             }
 
             @Override

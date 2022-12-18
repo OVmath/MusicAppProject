@@ -9,7 +9,7 @@ public class SongObject implements Serializable {
     private String linkSong;
     private String duration;
     private String artist;
-    private Boolean liked;
+    private Boolean liked = false;
     private ArrayList<String> lyrics;
     private ArrayList<String> keys_playlist;
     private String imgSong;
