@@ -14,7 +14,7 @@ public class SongObject implements Serializable {
     private ArrayList<String> keys_playlist;
     private String imgSong;
     private int listens;
-    SongObject(){
+    public SongObject(){
 
     }
 

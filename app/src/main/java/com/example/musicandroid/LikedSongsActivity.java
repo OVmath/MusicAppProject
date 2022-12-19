@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +48,7 @@ public class LikedSongsActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference("user");
     RecyclerView recyclerView;
+    EditText editSearch;
     //end
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class LikedSongsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liked_songs);
 
         //liem code
+        editSearch = findViewById(R.id.edtSearch);
         tvHelloAcc = findViewById(R.id.tvHelloAcc);
         AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -104,6 +109,43 @@ public class LikedSongsActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 recyclerView.setLayoutManager(new LinearLayoutManager(LikedSongsActivity.this));
                 recyclerView.setAdapter(adapter);
+
+                ArrayList<SongObject> listSearch = new ArrayList<>();
+                editSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        if (!editable.toString().equals("")){
+                            listSearch.clear();
+                            for (int i = 0; i < listLikedSong.size(); i++){
+                                if (listLikedSong.get(i).getNameSong().contains(editable.toString())){
+                                    listSearch.add(listLikedSong.get(i));
+                                }
+                            }
+                            adapter.clear();
+                            adapter = new MusicListAdapter(listSearch, LikedSongsActivity.this);
+                            adapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(adapter);
+
+                        }
+                        else {
+                            adapter.clear();
+                            adapter = new MusicListAdapter(listLikedSong, LikedSongsActivity.this);
+                            adapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(adapter);
+                        }
+
+                    }
+                });
             }
 
             @Override

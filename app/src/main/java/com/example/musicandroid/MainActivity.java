@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     recyclerView.setAdapter(adapter);
                 }
 
-                ArrayList<SongObject> list = songsList;
+
                 edtSearch.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -157,8 +157,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     public void afterTextChanged(Editable editable) {
                         if (!editable.toString().equals("")){
                             songListSearch.clear();
-                            for (int i = 0; i < list.size(); i++){
-                                if (list.get(i).getNameSong().contains(editable.toString())){
+                            for (int i = 0; i < songsList.size(); i++){
+                                if (songsList.get(i).getNameSong().contains(editable.toString())){
                                     songListSearch.add(songsList.get(i));
                                 }
                             }
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         }
                         else {
                             adapter.clear();
-                            adapter = new MusicListAdapter(list, MainActivity.this);
+                            adapter = new MusicListAdapter(songsList, MainActivity.this);
                             adapter.notifyDataSetChanged();
                             recyclerView.setAdapter(adapter);
                         }

@@ -168,14 +168,14 @@ public class MusicPlayerActivity extends AppCompatActivity {
         Picasso.with(MusicPlayerActivity.this).load(currentSong.getImgSong()).into(musicIcon);
 
         titleTv.setText(currentSong.getNameSong());
-        /*try {
+        try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(currentSong.getLinkSong());
             mediaPlayer.prepare();
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-        //totalTimeTv.setText(convertToMMSS(mediaPlayer.getDuration() + ""));
+        }
+        totalTimeTv.setText(convertToMMSS(mediaPlayer.getDuration() + ""));
         img_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

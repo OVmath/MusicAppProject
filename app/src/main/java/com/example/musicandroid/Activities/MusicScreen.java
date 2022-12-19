@@ -14,7 +14,10 @@ import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.TrendingModels;
 import com.example.musicandroid.Models.UserModel;
+import com.example.musicandroid.PlaylistAdapter;
+import com.example.musicandroid.PlaylistObject;
 import com.example.musicandroid.R;
+import com.example.musicandroid.SongObject;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -35,10 +38,12 @@ import Adapter.TrendingRvAdapter;
 public class MusicScreen extends AppCompatActivity {
 
     RecyclerView RvArtist, RvTrending, RvLateRelease;
-    ArtistRvAdapter artistAdapter, lateReleaseAdapter;
+    PlaylistAdapter artistAdapter;
+    ArtistRvAdapter lateReleaseAdapter;
     TrendingRvAdapter trendingAdapter;
-    ArrayList<ArtistModels> listArtist, listLastestRelease;
-    ArrayList<TrendingModels> listTrending;
+    ArrayList<PlaylistObject> listArtist;
+    ArrayList<ArtistModels> listLastestRelease;
+    ArrayList<SongObject> listTrending;
     //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
     TextView tvHelloAcc;
@@ -120,23 +125,52 @@ public class MusicScreen extends AppCompatActivity {
         listTrending = new ArrayList<>();
         listLastestRelease = new ArrayList<>();
 
-        listArtist.add(new ArtistModels("Ed Sheeran", R.drawable.ic_user_24 + ""));
-        listArtist.add(new ArtistModels("Arijit Singh", R.drawable.ic_user_24 + ""));
-        listArtist.add(new ArtistModels("Selena \n Gomez", R.drawable.ic_user_24 + ""));
-        listArtist.add(new ArtistModels("Taylor Swift", R.drawable.ic_user_24 + ""));
-        listArtist.add(new ArtistModels("Sonu Nigam",R.drawable.ic_user_24 + ""));
-        listArtist.add(new ArtistModels("Shreya \n Ghoshal",R.drawable.ic_user_24 + ""));
+        DatabaseReference databasePlayList = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("listPlayList");
 
-        listTrending.add(new TrendingModels(R.drawable.trending + ""));
-        listTrending.add(new TrendingModels(R.drawable.trending + ""));
+        databasePlayList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        artistAdapter = new ArtistRvAdapter(listArtist);
-        RvArtist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        RvArtist.setAdapter(artistAdapter);
+                PlaylistObject playlistObject = new PlaylistObject();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    playlistObject = snapshot1.getValue(PlaylistObject.class);
+                    listArtist.add(playlistObject);
+                }
 
-        trendingAdapter = new TrendingRvAdapter(listTrending);
-        RvTrending.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        RvTrending.setAdapter(trendingAdapter);
+                artistAdapter = new PlaylistAdapter(listArtist, MusicScreen.this);
+                RvArtist.setLayoutManager(new LinearLayoutManager(MusicScreen.this, LinearLayoutManager.HORIZONTAL, false));
+                RvArtist.setAdapter(artistAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference trendingDatabase = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("listTrending");
+
+        trendingDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                SongObject songObject = new SongObject();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    songObject = snapshot1.getValue(SongObject.class);
+                    listTrending.add(songObject);
+                }
+
+                trendingAdapter = new TrendingRvAdapter(listTrending, MusicScreen.this);
+                RvTrending.setLayoutManager(new LinearLayoutManager(MusicScreen.this, LinearLayoutManager.HORIZONTAL, false));
+                RvTrending.setAdapter(trendingAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
         listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));

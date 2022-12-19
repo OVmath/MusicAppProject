@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_light"
                     android:paddingBottom="10dp"
-                    android:text="Your Artists"
+                    android:text="Play list"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp" />
 

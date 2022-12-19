@@ -7,11 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.musicandroid.PlaylistObject;
 import com.example.musicandroid.R;
+import com.example.musicandroid.SongObject;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class OnboardingScreen1 extends AppCompatActivity {
 
     Button btnSkip, btnNext;
+    DatabaseReference database = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("listPlayList");
+    PlaylistObject songObject = new PlaylistObject();
+    ArrayList<PlaylistObject> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +29,14 @@ public class OnboardingScreen1 extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding_screen_1);
         btnNext = findViewById(R.id.btnNext1);
         btnSkip = findViewById(R.id.btnSkip1);
+/*
+        for (int i = 1; i <= 3; i++){
+            songObject.setKeyPlaylist(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+            songObject.setImgPath("0");
+            songObject.setNamePlaylist("0");
+            list.add(songObject);
+        }
+        database.setValue(list);*/
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
