@@ -76,7 +76,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
         fragment = new LyricsFragment();
         img_lyric.setOnClickListener(view -> {
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
 //            fragment.getView().setVisibility(View.VISIBLE);
         });
         img_like.setOnClickListener(view -> {
