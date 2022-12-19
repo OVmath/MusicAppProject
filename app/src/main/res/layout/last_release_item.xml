@@ -15,9 +15,10 @@
 
         <ImageView
             android:id="@+id/imgArtist"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="10dp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_user_24" />
 
         <TextView
@@ -26,6 +27,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Artist name"
-            android:textSize="14sp" />
+            android:textSize="8sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

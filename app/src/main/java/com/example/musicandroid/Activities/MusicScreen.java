@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.ArtistModels;
-import com.example.musicandroid.Models.TrendingModels;
 import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.PlaylistAdapter;
 import com.example.musicandroid.PlaylistObject;
@@ -32,18 +31,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import Adapter.ArtistRvAdapter;
+import Adapter.LastReleaseAdapter;
 import Adapter.TrendingRvAdapter;
 
 public class MusicScreen extends AppCompatActivity {
 
     RecyclerView RvArtist, RvTrending, RvLateRelease;
     PlaylistAdapter artistAdapter;
-    ArtistRvAdapter lateReleaseAdapter;
+    LastReleaseAdapter lateReleaseAdapter;
     TrendingRvAdapter trendingAdapter;
     ArrayList<PlaylistObject> listArtist;
-    ArrayList<ArtistModels> listLastestRelease;
-    ArrayList<SongObject> listTrending;
+    ArrayList<SongObject> listTrending, listLastRelease;
     //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
     TextView tvHelloAcc;
@@ -123,7 +121,7 @@ public class MusicScreen extends AppCompatActivity {
 
         listArtist = new ArrayList<>();
         listTrending = new ArrayList<>();
-        listLastestRelease = new ArrayList<>();
+        listLastRelease = new ArrayList<>();
 
         DatabaseReference databasePlayList = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("listPlayList");
 
@@ -172,13 +170,31 @@ public class MusicScreen extends AppCompatActivity {
             }
         });
 
-        listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
-        listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
-        listLastestRelease.add(new ArtistModels("Song name", R.drawable.latest_release + ""));
+        DatabaseReference lastReleaseDatabase = FirebaseDatabase.getInstance("https://musicandroidjava-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("lastestRelease");
 
-        lateReleaseAdapter = new ArtistRvAdapter(listLastestRelease);
-        RvLateRelease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        RvLateRelease.setAdapter(lateReleaseAdapter);
+        lastReleaseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                SongObject songObject = new SongObject();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    songObject = snapshot1.getValue(SongObject.class);
+                    listLastRelease.add(songObject);
+                }
+
+                lateReleaseAdapter = new LastReleaseAdapter(listLastRelease, MusicScreen.this);
+                RvLateRelease.setLayoutManager(new LinearLayoutManager(MusicScreen.this, LinearLayoutManager.HORIZONTAL, false));
+                RvLateRelease.setAdapter(lateReleaseAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         //liem end
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
