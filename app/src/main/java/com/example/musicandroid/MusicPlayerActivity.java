@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.musicandroid.Activities.LyricsFragment;
 import com.example.musicandroid.Models.UserModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -42,6 +43,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     ArrayList<SongObject> songsList;
     SongObject currentSong;
     MediaPlayer mediaPlayer = MyMediaPlayer.getInstance();
+    LyricsFragment fragment;
     Random random = new Random();
     int x=0;
     //liem code
@@ -71,8 +73,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
         img_like = findViewById(R.id.img_like);
         replay = findViewById(R.id.img_replay);
         img_lyric = findViewById(R.id.ic_lyrics);
+        fragment = new LyricsFragment();
         img_lyric.setOnClickListener(view -> {
 
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+//            fragment.getView().setVisibility(View.VISIBLE);
         });
         img_like.setOnClickListener(view -> {
 

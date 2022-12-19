@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.musicandroid.R;
 
@@ -24,6 +25,7 @@ public class LyricsFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
+    private View view;
     private String mParam2;
 
     public LyricsFragment() {
@@ -60,7 +62,17 @@ public class LyricsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lyrics, container, false);
+        view = inflater.inflate(R.layout.fragment_lyrics, container, false);
+        ImageView img = view.findViewById(R.id.img_hide);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onDestroyView();
+
+            }
+        });
+        return view;
+
     }
 }

@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".Activities.LyricsFragment">
+
     <ImageView
+        android:id="@+id/img_hide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/img_hide_lyrics"
-        />
+        android:src="@drawable/img_hide_lyrics" />
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

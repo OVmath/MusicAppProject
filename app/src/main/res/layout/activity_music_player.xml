@@ -149,5 +149,10 @@
         android:src="@drawable/lyrics"
         android:layout_centerHorizontal="true"
         />
+    <FrameLayout
+        android:layout_below="@+id/song_title"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
