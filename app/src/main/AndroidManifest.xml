@@ -31,6 +31,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Activities.thongBao"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activities.SuaInfoActivity"
             android:exported="false">
             <meta-data

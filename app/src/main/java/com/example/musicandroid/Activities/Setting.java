@@ -34,7 +34,7 @@ public class Setting extends AppCompatActivity {
     //liem code
     FirebaseAuth auth = FirebaseAuth.getInstance();
     BottomNavigationView bottomNavigationViewSetting;
-    LinearLayout btnInfoUpdate, btnChangePass, btnAboutUs;
+    LinearLayout btnInfoUpdate, btnChangePass, btnAboutUs, connect, tvDataSaver, dataDown,downloadQuality, helpSupport, aboutUs;
     TextView tvHelloAcc, tvHelloAcc2;
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
@@ -45,14 +45,16 @@ public class Setting extends AppCompatActivity {
             .getReference("user");
     //end
     Button logout;
-    LinearLayout aboutUs;
-    LinearLayout helpSupport;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         //liem code
+        connect = findViewById(R.id.connect);
+        tvDataSaver = findViewById(R.id.tvDataSaver);
+        dataDown = findViewById(R.id.dataDown);
+        downloadQuality = findViewById(R.id.downloadQuality);
         bottomNavigationViewSetting = findViewById(R.id.bottom_navi_menu_setting_activity);
         btnInfoUpdate = findViewById(R.id.LayoutInfoUpdate);
         btnChangePass = findViewById(R.id.LayoutChangePass);
@@ -153,6 +155,30 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Setting.this, about.class));
+            }
+        });
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, thongBao.class));
+            }
+        });
+        tvDataSaver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, thongBao.class));
+            }
+        });
+        dataDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, thongBao.class));
+            }
+        });
+        downloadQuality.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this, thongBao.class));
             }
         });
         bottomNavigationView = findViewById(R.id.bottom_navi_menu_setting_activity);
