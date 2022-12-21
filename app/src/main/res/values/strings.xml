@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">musicAndroid</string>
+    <string name="app_name">MusicNTL</string>
 
     <string name="facebook_app_id">444153624594927</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
