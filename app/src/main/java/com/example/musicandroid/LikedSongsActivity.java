@@ -93,6 +93,10 @@ public class LikedSongsActivity extends AppCompatActivity {
                         userModel = snapshot1.getValue(UserModel.class);
                     }
                 }
+                if (userModel.getTenHT().equals("")){
+                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị");
+                }
+                else tvHelloAcc.setText(userModel.getTenHT());
                 if (!userModel.getLinkAnh().equals("")){
                     Picasso.with(LikedSongsActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }

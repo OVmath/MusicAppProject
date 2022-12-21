@@ -74,6 +74,7 @@ public class PlaylistActivity extends AppCompatActivity {
     GoogleSignInOptions signInOptions;
     GoogleSignInClient gsc;
     UserModel userModel;
+    TextView tvHelloAcc;
     ArrayList<PlaylistObject> playListSearch = new ArrayList<>();
     PlaylistObject playlistObject = new PlaylistObject();
     String UID, keyUser;
@@ -90,7 +91,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
         //liem code
         edtSearch = findViewById(R.id.edtSearch);
-
+        tvHelloAcc = findViewById(R.id.tvHelloAcc);
         AnhDaiDienMain = findViewById(R.id.avatar);
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, signInOptions);
@@ -126,6 +127,10 @@ public class PlaylistActivity extends AppCompatActivity {
                         keyUser = snapshot1.getKey();
                     }
                 }
+                if (userModel.getTenHT().equals("")){
+                    tvHelloAcc.setText("Vào setting để chỉnh tên hiển thị");
+                }
+                else tvHelloAcc.setText(userModel.getTenHT());
                 if (!userModel.getLinkAnh().equals("")){
                     Picasso.with(PlaylistActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
