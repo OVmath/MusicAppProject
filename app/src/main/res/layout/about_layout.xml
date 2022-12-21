@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBaseline_toTopOf="parent"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="About"/>
