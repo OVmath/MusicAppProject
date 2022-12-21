@@ -6,9 +6,7 @@ plugins {
 android {
     namespace 'com.example.musicandroid'
     compileSdk 32
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
+
     defaultConfig {
         applicationId "com.example.musicandroid"
         minSdk 21
