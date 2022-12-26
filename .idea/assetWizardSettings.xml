@@ -79,8 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\nguye\OneDrive\Documents\Code\Study\Android\project\nghia\musicAnroidJava\app\src\main\res\drawable\music-store-app.png" />
-                                                <entry key="scalingPercent" value="72" />
+                                                <entry key="imagePath" value="C:\Users\nguye\Downloads\music-store-app.png" />
+                                                <entry key="scalingPercent" value="90" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -108,6 +108,11 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="outputName" value="music" />
                                     </map>
                                   </option>
                                 </PersistentState>
