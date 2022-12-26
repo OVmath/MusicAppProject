@@ -134,7 +134,7 @@ public class PlaylistActivity extends AppCompatActivity {
                 if (!userModel.getLinkAnh().equals("")){
                     Picasso.with(PlaylistActivity.this).load(userModel.getLinkAnh()).into(AnhDaiDienMain);
                 }
-                if (userModel.getListPlayList() == null){
+                if (userModel.getListPlayList().isEmpty()){
                     Toast.makeText(PlaylistActivity.this, "Không có play list nào trong tài khoản", Toast.LENGTH_LONG).show();
                 }
                 else{

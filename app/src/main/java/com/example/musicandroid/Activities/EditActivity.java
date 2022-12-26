@@ -9,11 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
 import com.example.musicandroid.SongObject;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -107,7 +110,13 @@ public class EditActivity extends AppCompatActivity {
 
                 for (int i = 0; i < userModel.getListSong().size(); i++){
                     if (userModel.getListSong().get(i).getKeySong().equals(songObject.getKeySong())){
-                        database.child(keyUser).child("listSong").child(i + "").setValue(songObject);
+                        database.child(keyUser).child("listSong").child(i + "").setValue(songObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(EditActivity.this, "Sửa nhạc thành công", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
                     }
                 }
             }

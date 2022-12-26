@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class UserModel implements Serializable {
     //Liem code start
     private String UID, LinkAnh, GioiTinh, TenHT;
-    private ArrayList<PlaylistObject> listPlayList;
+    private ArrayList<PlaylistObject> listPlayList = new ArrayList<>();
     private ArrayList<String> listLikeSongs;
     private ArrayList<SongObject> listSong;
 
