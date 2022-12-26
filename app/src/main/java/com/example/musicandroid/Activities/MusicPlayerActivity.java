@@ -242,11 +242,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 public void onPrepared(MediaPlayer mediaPlayer) {
 
                     mediaPlayer.start();
+                    seekBar.setMax(mediaPlayer.getDuration());
 
                 }
             });
             seekBar.setProgress(0);
-            seekBar.setMax(mediaPlayer.getDuration());
         } catch (IOException e) {
             e.printStackTrace();
         }
