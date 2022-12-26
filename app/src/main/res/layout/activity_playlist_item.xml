@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:background="#9C27B0"
-    tools:context=".PlaylistItemActivity">
+    tools:context=".Activities.PlaylistItemActivity">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

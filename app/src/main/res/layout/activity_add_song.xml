@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:background="#752498"
-    tools:context=".AddSongActivity">
+    tools:context=".Activities.AddSongActivity">
 
     <TextView
         android:layout_width="match_parent"

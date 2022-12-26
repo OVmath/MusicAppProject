@@ -1,4 +1,4 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.example.musicandroid.Models.SongObject;
 import com.example.musicandroid.Models.UserModel;
+import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -1,4 +1,4 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.musicandroid.Activities.LyricsFragment;
+import com.example.musicandroid.Models.MyMediaPlayer;
+import com.example.musicandroid.Models.SongObject;
 import com.example.musicandroid.Models.UserModel;
+import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

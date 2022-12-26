@@ -1,8 +1,5 @@
 package com.example.musicandroid.Models;
 
-import com.example.musicandroid.PlaylistObject;
-import com.example.musicandroid.SongObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

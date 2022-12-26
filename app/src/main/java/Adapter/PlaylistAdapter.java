@@ -1,20 +1,20 @@
-package com.example.musicandroid;
+package Adapter;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.musicandroid.Activities.PlaylistActivity;
+import com.example.musicandroid.Activities.PlaylistItemActivity;
+import com.example.musicandroid.Models.PlaylistObject;
+import com.example.musicandroid.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 //            dialog.show();
 //        });
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(context,PlaylistItemActivity.class);
+            Intent intent = new Intent(context, PlaylistItemActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });

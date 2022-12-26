@@ -1,11 +1,10 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
@@ -27,9 +26,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.musicandroid.Activities.MusicScreen;
-import com.example.musicandroid.Activities.Setting;
+import com.example.musicandroid.Models.PlaylistObject;
 import com.example.musicandroid.Models.UserModel;
+import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -51,6 +50,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import Adapter.PlaylistAdapter;
 
 public class PlaylistActivity extends AppCompatActivity {
     ImageView addPlaylist;

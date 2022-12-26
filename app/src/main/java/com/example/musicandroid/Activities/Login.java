@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.musicandroid.MainActivity;
 import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
 import com.facebook.CallbackManager;

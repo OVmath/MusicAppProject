@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3C0051"
-    tools:context=".MusicPlayerActivity">
+    tools:context=".Activities.MusicPlayerActivity">
     <ImageView
         android:layout_marginTop="5dp"
         android:layout_width="30sp"

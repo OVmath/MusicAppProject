@@ -2,7 +2,6 @@ package Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,13 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.musicandroid.Models.TrendingModels;
-import com.example.musicandroid.MusicPlayerActivity;
-import com.example.musicandroid.MyMediaPlayer;
+import com.example.musicandroid.Activities.MusicPlayerActivity;
+import com.example.musicandroid.Models.MyMediaPlayer;
 import com.example.musicandroid.R;
-import com.example.musicandroid.SongObject;
+import com.example.musicandroid.Models.SongObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class TrendingRvAdapter extends RecyclerView.Adapter<TrendingRvAdapter.TrendingRvHolder> {
 

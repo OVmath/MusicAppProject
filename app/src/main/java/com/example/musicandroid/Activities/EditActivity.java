@@ -1,8 +1,11 @@
 package com.example.musicandroid.Activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +16,10 @@ import android.widget.Toast;
 
 import com.example.musicandroid.Models.UserModel;
 import com.example.musicandroid.R;
-import com.example.musicandroid.SongObject;
+import com.example.musicandroid.Models.SongObject;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +27,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -53,6 +60,7 @@ public class EditActivity extends AppCompatActivity {
         btn_image = findViewById(R.id.btn_image);
         btn_exit = findViewById(R.id.btn_exit);
         btn_save = findViewById(R.id.btn_save);
+        image = findViewById(R.id.image);
 
         songObject = (SongObject) getIntent().getSerializableExtra("Object");
 
@@ -101,6 +109,18 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
+        ActivityResultLauncher<String> imageResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                result -> {
+                    if (result != null) {
+                        image.setImageURI(result);
+
+                        uriAnh = result;
+                    }
+                });
+
+        btn_image.setOnClickListener(view -> imageResultLauncher.launch("image/*"));
+
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,17 +128,46 @@ public class EditActivity extends AppCompatActivity {
                 songObject.setNameSong(edtName.getText().toString());
                 songObject.setArtist(edtArtist.getText().toString());
 
-                for (int i = 0; i < userModel.getListSong().size(); i++){
-                    if (userModel.getListSong().get(i).getKeySong().equals(songObject.getKeySong())){
-                        database.child(keyUser).child("listSong").child(i + "").setValue(songObject).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(EditActivity.this, "Sửa nhạc thành công", Toast.LENGTH_SHORT).show();
-                                finish();
+                ProgressDialog dialog2 = new ProgressDialog(EditActivity.this);
+                dialog2.show();
+
+                referenceAnh = FirebaseStorage.getInstance("gs://musicandroidjava.appspot.com/")
+                        .getReference("AnhNhac").child(uriAnh.getLastPathSegment());
+
+                referenceAnh.putFile(uriAnh).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!task.isComplete());
+                        uriAnh = task.getResult();
+                        songObject.setImgSong(uriAnh.toString());
+
+                        dialog2.dismiss();
+
+                        for (int i = 0; i < userModel.getListSong().size(); i++){
+                            if (userModel.getListSong().get(i).getKeySong().equals(songObject.getKeySong())){
+                                database.child(keyUser).child("listSong").child(i + "").setValue(songObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(EditActivity.this, "Sửa nhạc thành công", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
                             }
-                        });
+                        }
+
                     }
-                }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
+                        int CurProgress = (int) progress;
+                        dialog2.setMessage("Upload: " + CurProgress + "%");
+                    }
+                });
+
+
             }
         });
 

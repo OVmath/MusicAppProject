@@ -1,22 +1,21 @@
-package com.example.musicandroid;
+package Adapter;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.musicandroid.Activities.MainActivity;
+import com.example.musicandroid.Activities.MusicPlayerActivity;
+import com.example.musicandroid.Models.MyMediaPlayer;
+import com.example.musicandroid.R;
+import com.example.musicandroid.Models.SongObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                 //navigate to another acitivty
                 MyMediaPlayer.getInstance().reset();
                 MyMediaPlayer.currentIndex = position;
-                Intent intent = new Intent(context,MusicPlayerActivity.class);
+                Intent intent = new Intent(context, MusicPlayerActivity.class);
                 intent.putExtra("LIST",songsList);
                 context.startActivity(intent);
 

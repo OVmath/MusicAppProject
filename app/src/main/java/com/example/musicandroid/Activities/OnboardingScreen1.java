@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.musicandroid.PlaylistObject;
 import com.example.musicandroid.R;
-import com.example.musicandroid.SongObject;
+import com.example.musicandroid.Models.SongObject;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class OnboardingScreen1 extends AppCompatActivity {
 

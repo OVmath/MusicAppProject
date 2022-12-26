@@ -1,4 +1,4 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.musicandroid.R;
 
 public class PlaylistItemActivity extends AppCompatActivity {
     ImageView btn_exit;

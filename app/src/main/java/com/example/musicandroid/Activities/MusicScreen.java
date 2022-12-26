@@ -10,13 +10,11 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.musicandroid.MainActivity;
-import com.example.musicandroid.Models.ArtistModels;
 import com.example.musicandroid.Models.UserModel;
-import com.example.musicandroid.PlaylistAdapter;
-import com.example.musicandroid.PlaylistObject;
+import Adapter.PlaylistAdapter;
+import com.example.musicandroid.Models.PlaylistObject;
 import com.example.musicandroid.R;
-import com.example.musicandroid.SongObject;
+import com.example.musicandroid.Models.SongObject;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

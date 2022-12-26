@@ -11,11 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.musicandroid.Models.ArtistModels;
-import com.example.musicandroid.MusicPlayerActivity;
-import com.example.musicandroid.MyMediaPlayer;
+import com.example.musicandroid.Activities.MusicPlayerActivity;
+import com.example.musicandroid.Models.MyMediaPlayer;
 import com.example.musicandroid.R;
-import com.example.musicandroid.SongObject;
+import com.example.musicandroid.Models.SongObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

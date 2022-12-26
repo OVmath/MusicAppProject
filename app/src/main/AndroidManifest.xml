@@ -45,7 +45,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LikedSongsActivity"
+            android:name=".Activities.LikedSongsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -66,35 +66,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddSongActivity"
+            android:name=".Activities.AddSongActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PlaylistItemActivity"
+            android:name=".Activities.PlaylistItemActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PlaylistActivity"
+            android:name=".Activities.PlaylistActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MusicPlayerActivity"
+            android:name=".Activities.MusicPlayerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
 
             <meta-data

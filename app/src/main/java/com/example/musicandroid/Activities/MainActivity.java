@@ -1,4 +1,4 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,30 +24,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.musicandroid.Activities.EditActivity;
-import com.example.musicandroid.Activities.MusicScreen;
-import com.example.musicandroid.Activities.Setting;
+import com.example.musicandroid.Models.SongObject;
 import com.example.musicandroid.Models.UserModel;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.example.musicandroid.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import Adapter.MusicListAdapter;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
     RecyclerView recyclerView;

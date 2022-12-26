@@ -1,4 +1,4 @@
-package com.example.musicandroid;
+package com.example.musicandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.musicandroid.Activities.MusicScreen;
-import com.example.musicandroid.Activities.Setting;
+import com.example.musicandroid.Models.SongObject;
 import com.example.musicandroid.Models.UserModel;
+import com.example.musicandroid.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import Adapter.MusicListAdapter;
 
 public class LikedSongsActivity extends AppCompatActivity {
     Button local_song;
